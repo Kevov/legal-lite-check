@@ -24,7 +24,6 @@ interface FormData {
   timeframe: string;
   settlementAttempts: string;
   canPayFee: boolean;
-  defendantContact: string;
   claimDescription: string;
 }
 
@@ -48,18 +47,37 @@ const EligibilityChecker = () => {
     timeframe: "",
     settlementAttempts: "",
     canPayFee: false,
-    defendantContact: "",
+    
     claimDescription: ""
   });
 
-  const totalSteps = 8;
+  const totalSteps = 7;
+
+  // Google Analytics tracking function
+  const trackFieldInteraction = (fieldName: string, value: any, step: number) => {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'form_field_interaction', {
+        field_name: fieldName,
+        field_value: value,
+        form_step: step,
+        form_name: 'small_claims_eligibility'
+      });
+    }
+  };
 
   const updateFormData = (field: keyof FormData, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+    trackFieldInteraction(field, value, currentStep);
   };
 
   const nextStep = () => {
     if (currentStep < totalSteps) {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'form_step_completed', {
+          step_number: currentStep,
+          form_name: 'small_claims_eligibility'
+        });
+      }
       setCurrentStep(currentStep + 1);
     }
   };
@@ -73,6 +91,13 @@ const EligibilityChecker = () => {
   const submitForm = async () => {
     setIsSubmitting(true);
     
+    // Track form submission attempt
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'form_submission_started', {
+        form_name: 'small_claims_eligibility'
+      });
+    }
+    
     try {
       const response = await fetch("http://localhost:3000/checker", {
         method: "POST",
@@ -85,6 +110,14 @@ const EligibilityChecker = () => {
       if (response.ok) {
         const result = await response.json();
         setEligibilityResult(result.eligibility);
+        
+        // Track successful submission
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'form_submission_success', {
+            form_name: 'small_claims_eligibility',
+            eligibility_result: result.eligibility
+          });
+        }
       } else {
         throw new Error("Server error");
       }
@@ -92,6 +125,14 @@ const EligibilityChecker = () => {
       // Default behavior when backend fails
       const mockEligibility = Math.random() > 0.3; // 70% chance of eligibility
       setEligibilityResult(mockEligibility);
+      
+      // Track offline mode usage
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'form_submission_offline', {
+          form_name: 'small_claims_eligibility',
+          eligibility_result: mockEligibility
+        });
+      }
       
       toast({
         title: "Using offline mode",
@@ -333,7 +374,7 @@ const EligibilityChecker = () => {
       case 7:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Filing Requirements</h3>
+            <h3 className="text-lg font-medium">Final Details</h3>
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="filing-fee"
@@ -342,23 +383,6 @@ const EligibilityChecker = () => {
               />
               <Label htmlFor="filing-fee">I can afford the $50 filing fee</Label>
             </div>
-            <div>
-              <Label htmlFor="defendant-contact">Defendant's Contact Information</Label>
-              <Textarea
-                id="defendant-contact"
-                value={formData.defendantContact}
-                onChange={(e) => updateFormData("defendantContact", e.target.value)}
-                placeholder="Enter defendant's name, address, phone number, or email"
-                rows={3}
-              />
-            </div>
-          </div>
-        );
-
-      case 8:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium">Claim Description</h3>
             <div>
               <Label htmlFor="claim-description">Describe your claim in detail</Label>
               <Textarea
@@ -458,9 +482,15 @@ const EligibilityChecker = () => {
                     timeframe: "",
                     settlementAttempts: "",
                     canPayFee: false,
-                    defendantContact: "",
                     claimDescription: ""
                   });
+                  
+                  // Track form restart
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'form_restarted', {
+                      form_name: 'small_claims_eligibility'
+                    });
+                  }
                 }} variant="outline">
                   Start Over
                 </Button>
