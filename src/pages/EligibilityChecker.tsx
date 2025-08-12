@@ -464,39 +464,32 @@ const EligibilityChecker = () => {
                 <h3 className="text-lg font-semibold mb-3">Helpful Resources</h3>
                 <div className="space-y-2">
                   <a
-                    href="#"
+                    href="https://www.courts.wa.gov/newsinfo/resources/?altMenu=smal&fa=newsinfo_jury.scc"
                     className="block p-3 border rounded-lg hover:bg-accent transition-colors"
                   >
-                    <div className="font-medium">Small Claims Court Filing Guide</div>
-                    <div className="text-sm text-muted-foreground">Step-by-step instructions for filing your claim</div>
+                    <div className="font-medium">Washington State Small Claims Info Page</div>
+                    <div className="text-sm text-muted-foreground">General information on small claims in Washington State</div>
                   </a>
                   <a
-                    href="#"
+                    href="https://app.leg.wa.gov/RCW/default.aspx?cite=12.40"
                     className="block p-3 border rounded-lg hover:bg-accent transition-colors"
                   >
-                    <div className="font-medium">Court Forms and Documents</div>
-                    <div className="text-sm text-muted-foreground">Download required forms for your jurisdiction</div>
+                    <div className="font-medium">WA State Small Claims Statutes (RCW)</div>
+                    <div className="text-sm text-muted-foreground">Check you small claim case status</div>
                   </a>
                   <a
-                    href="#"
+                    href="https://kingcounty.gov/en/court/district-court/courts-jails-legal-system/small-claims"
                     className="block p-3 border rounded-lg hover:bg-accent transition-colors"
                   >
-                    <div className="font-medium">Legal Aid Resources</div>
-                    <div className="text-sm text-muted-foreground">Find free or low-cost legal assistance</div>
+                    <div className="font-medium">Small Claim Guide for King County</div>
+                    <div className="text-sm text-muted-foreground">Step-by-step guide for small claims in King County, WA</div>
                   </a>
                   <a
-                    href="#"
+                    href="https://www.courts.wa.gov/forms/?fa=forms.contribute&formID=33"
                     className="block p-3 border rounded-lg hover:bg-accent transition-colors"
                   >
-                    <div className="font-medium">Court Location Finder</div>
-                    <div className="text-sm text-muted-foreground">Find your local small claims court</div>
-                  </a>
-                  <a
-                    href="#"
-                    className="block p-3 border rounded-lg hover:bg-accent transition-colors"
-                  >
-                    <div className="font-medium">Mediation Services</div>
-                    <div className="text-sm text-muted-foreground">Alternative dispute resolution options</div>
+                    <div className="font-medium">Useful PDFs of General Guides</div>
+                    <div className="text-sm text-muted-foreground">Guides in PDF format for Washington State</div>
                   </a>
                 </div>
               </div>
