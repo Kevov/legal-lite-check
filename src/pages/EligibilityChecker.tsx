@@ -183,18 +183,16 @@ const EligibilityChecker = () => {
                 </div>
               </RadioGroup>
             </div>
-            {formData.claimNature === "monetary" && (
-              <div>
-                <Label htmlFor="amount">Claim Amount ($)</Label>
-                <Input
-                  id="amount"
-                  type="number"
-                  value={formData.claimAmount}
-                  onChange={(e) => updateFormData("claimAmount", e.target.value)}
-                  placeholder="Enter claim amount"
-                />
-              </div>
-            )}
+            <div>
+              <Label htmlFor="amount">Claim Amount ($)</Label>
+              <Input
+                id="amount"
+                type="number"
+                value={formData.claimAmount}
+                onChange={(e) => updateFormData("claimAmount", e.target.value)}
+                placeholder="Enter claim amount (if applicable)"
+              />
+            </div>
           </div>
         );
 
