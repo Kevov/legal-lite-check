@@ -27,6 +27,7 @@ interface FormData {
   canPayFee: boolean;
   claimDescription: string;
   zipCode: string;
+  selfRepresentation: string;
 }
 
 const EligibilityChecker = () => {
@@ -50,7 +51,8 @@ const EligibilityChecker = () => {
     settlementAttempts: "",
     canPayFee: false,
     claimDescription: "",
-    zipCode: ""
+    zipCode: "",
+    selfRepresentation: ""
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -382,6 +384,22 @@ const EligibilityChecker = () => {
                 </SelectContent>
               </Select>
             </div>
+            <div>
+              <Label>Will you represent yourself in court?</Label>
+              <RadioGroup
+                value={formData.selfRepresentation}
+                onValueChange={(value) => updateFormData("selfRepresentation", value)}
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="yes" id="self-rep-yes" />
+                  <Label htmlFor="self-rep-yes">Yes</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="no" id="self-rep-no" />
+                  <Label htmlFor="self-rep-no">No</Label>
+                </div>
+              </RadioGroup>
+            </div>
           </div>
         );
 
@@ -512,7 +530,8 @@ const EligibilityChecker = () => {
                     settlementAttempts: "",
                     canPayFee: false,
                     claimDescription: "",
-                    zipCode: ""
+                    zipCode: "",
+                    selfRepresentation: ""
                   });
                   
                   // Track form restart
