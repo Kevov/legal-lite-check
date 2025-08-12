@@ -54,7 +54,7 @@ const EligibilityChecker = () => {
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const totalSteps = 8;
+  const totalSteps = 6;
 
   // Google Analytics tracking function
   const trackFieldInteraction = (fieldName: string, value: any, step: number) => {
@@ -222,7 +222,7 @@ const EligibilityChecker = () => {
       case 3:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Type of Claim</h3>
+            <h3 className="text-lg font-medium">Type of Claim & Timeframe</h3>
             <div>
               <Label>Select Claim Type</Label>
               <Select value={formData.claimType} onValueChange={(value) => updateFormData("claimType", value)}>
@@ -238,6 +238,38 @@ const EligibilityChecker = () => {
                   <SelectItem value="other">Other</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div>
+              <Label>When did the incident occur?</Label>
+              <Select value={formData.timeframe} onValueChange={(value) => updateFormData("timeframe", value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select timeframe" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="within-30-days">Within 30 days</SelectItem>
+                  <SelectItem value="1-6-months">1-6 months ago</SelectItem>
+                  <SelectItem value="6-12-months">6-12 months ago</SelectItem>
+                  <SelectItem value="1-2-years">1-2 years ago</SelectItem>
+                  <SelectItem value="2-3-years">2-3 years ago</SelectItem>
+                  <SelectItem value="over-3-years">Over 3 years ago</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Label>Have you attempted to settle this matter outside of court?</Label>
+              <RadioGroup
+                value={formData.settlementAttempts}
+                onValueChange={(value) => updateFormData("settlementAttempts", value)}
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="yes" id="settlement-yes" />
+                  <Label htmlFor="settlement-yes">Yes</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="no" id="settlement-no" />
+                  <Label htmlFor="settlement-no">No</Label>
+                </div>
+              </RadioGroup>
             </div>
           </div>
         );
@@ -356,46 +388,7 @@ const EligibilityChecker = () => {
       case 6:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Timeframe & Settlement</h3>
-            <div>
-              <Label>When did the incident occur?</Label>
-              <Select value={formData.timeframe} onValueChange={(value) => updateFormData("timeframe", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select timeframe" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="within-30-days">Within 30 days</SelectItem>
-                  <SelectItem value="1-6-months">1-6 months ago</SelectItem>
-                  <SelectItem value="6-12-months">6-12 months ago</SelectItem>
-                  <SelectItem value="1-2-years">1-2 years ago</SelectItem>
-                  <SelectItem value="2-3-years">2-3 years ago</SelectItem>
-                  <SelectItem value="over-3-years">Over 3 years ago</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label>Have you attempted to settle this matter outside of court?</Label>
-              <RadioGroup
-                value={formData.settlementAttempts}
-                onValueChange={(value) => updateFormData("settlementAttempts", value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="yes" id="settlement-yes" />
-                  <Label htmlFor="settlement-yes">Yes</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="no" id="settlement-no" />
-                  <Label htmlFor="settlement-no">No</Label>
-                </div>
-              </RadioGroup>
-            </div>
-          </div>
-        );
-
-      case 7:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium">Final Details</h3>
+            <h3 className="text-lg font-medium">Final Details & Filing Location</h3>
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="filing-fee"
@@ -414,13 +407,6 @@ const EligibilityChecker = () => {
                 rows={6}
               />
             </div>
-          </div>
-        );
-
-      case 8:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium">Filing Location</h3>
             <div>
               <Label htmlFor="zip-code">Zip Code of Filing Location</Label>
               <div className="flex gap-2">
