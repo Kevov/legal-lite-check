@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, CheckCircle, XCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { isEligibleForSmallClaim } from "@/logic/EligibilityLogic";
 
 interface FormData {
   age: string;
@@ -98,46 +99,16 @@ const EligibilityChecker = () => {
       });
     }
     
-    try {
-      const response = await fetch("http://localhost:3000/checker", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      
-      if (response.ok) {
-        const result = await response.json();
-        setEligibilityResult(result.eligibility);
-        
-        // Track successful submission
-        if (typeof window !== 'undefined' && (window as any).gtag) {
-          (window as any).gtag('event', 'form_submission_success', {
-            form_name: 'small_claims_eligibility',
-            eligibility_result: result.eligibility
-          });
-        }
-      } else {
-        throw new Error("Server error");
-      }
-    } catch (error) {
-      // Default behavior when backend fails
-      const mockEligibility = Math.random() > 0.3; // 70% chance of eligibility
-      setEligibilityResult(mockEligibility);
-      
-      // Track offline mode usage
-      if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'form_submission_offline', {
-          form_name: 'small_claims_eligibility',
-          eligibility_result: mockEligibility
-        });
-      }
-      
-      toast({
-        title: "Using offline mode",
-        description: "Could not connect to server. Showing sample result.",
-        variant: "default",
+    // Call the local eligibility logic function
+    const formDataJson = JSON.stringify(formData);
+    const eligibility = isEligibleForSmallClaim(formDataJson);
+    setEligibilityResult(eligibility);
+    
+    // Track successful submission
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'form_submission_success', {
+        form_name: 'small_claims_eligibility',
+        eligibility_result: eligibility
       });
     }
     
