@@ -7,7 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, ArrowRight, CheckCircle, XCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { isEligibleForSmallClaim } from "@/logic/EligibilityLogic";
 
@@ -26,6 +26,7 @@ interface FormData {
   settlementAttempts: string;
   canPayFee: boolean;
   claimDescription: string;
+  zipCode: string;
 }
 
 const EligibilityChecker = () => {
@@ -48,11 +49,12 @@ const EligibilityChecker = () => {
     timeframe: "",
     settlementAttempts: "",
     canPayFee: false,
-    
-    claimDescription: ""
+    claimDescription: "",
+    zipCode: ""
   });
 
-  const totalSteps = 7;
+  const [isLoadingLocation, setIsLoadingLocation] = useState(false);
+  const totalSteps = 8;
 
   // Google Analytics tracking function
   const trackFieldInteraction = (fieldName: string, value: any, step: number) => {
@@ -113,6 +115,56 @@ const EligibilityChecker = () => {
     }
     
     setIsSubmitting(false);
+  };
+
+  const getCurrentLocation = async () => {
+    setIsLoadingLocation(true);
+    
+    try {
+      if (!navigator.geolocation) {
+        throw new Error("Geolocation is not supported by this browser");
+      }
+      
+      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
+        });
+      });
+      
+      const { latitude, longitude } = position.coords;
+      
+      // Use Nominatim API for reverse geocoding
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+      );
+      
+      if (response.ok) {
+        const data = await response.json();
+        const zipCode = data.address?.postcode || "";
+        
+        if (zipCode) {
+          updateFormData("zipCode", zipCode);
+          toast({
+            title: "Location found",
+            description: `Zip code ${zipCode} has been filled in automatically.`,
+          });
+        } else {
+          throw new Error("Could not determine zip code from location");
+        }
+      } else {
+        throw new Error("Failed to get location data");
+      }
+    } catch (error: any) {
+      toast({
+        title: "Location error",
+        description: error.message || "Could not get your location. Please enter zip code manually.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoadingLocation(false);
+    }
   };
 
   const renderStep = () => {
@@ -365,6 +417,45 @@ const EligibilityChecker = () => {
           </div>
         );
 
+      case 8:
+        return (
+          <div className="space-y-4">
+            <h3 className="text-lg font-medium">Filing Location</h3>
+            <div>
+              <Label htmlFor="zip-code">Zip Code of Filing Location</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="zip-code"
+                  type="text"
+                  value={formData.zipCode}
+                  onChange={(e) => updateFormData("zipCode", e.target.value)}
+                  placeholder="Enter zip code (e.g., 90210)"
+                  maxLength={5}
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={getCurrentLocation}
+                  disabled={isLoadingLocation}
+                  className="shrink-0"
+                >
+                  {isLoadingLocation ? (
+                    <>Loading...</>
+                  ) : (
+                    <>
+                      <MapPin className="h-4 w-4 mr-2" />
+                      Use Location
+                    </>
+                  )}
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground mt-1">
+                Enter the zip code where you plan to file your small claims case, or use your current location.
+              </p>
+            </div>
+          </div>
+        );
+
       default:
         return null;
     }
@@ -451,7 +542,8 @@ const EligibilityChecker = () => {
                     timeframe: "",
                     settlementAttempts: "",
                     canPayFee: false,
-                    claimDescription: ""
+                    claimDescription: "",
+                    zipCode: ""
                   });
                   
                   // Track form restart
