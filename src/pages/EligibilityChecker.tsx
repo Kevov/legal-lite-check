@@ -389,24 +389,6 @@ const EligibilityChecker = () => {
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Final Details & Filing Location</h3>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="filing-fee"
-                checked={formData.canPayFee}
-                onCheckedChange={(checked) => updateFormData("canPayFee", checked)}
-              />
-              <Label htmlFor="filing-fee">I can afford the $50 filing fee</Label>
-            </div>
-            <div>
-              <Label htmlFor="claim-description">Describe your claim in detail</Label>
-              <Textarea
-                id="claim-description"
-                value={formData.claimDescription}
-                onChange={(e) => updateFormData("claimDescription", e.target.value)}
-                placeholder="Provide a detailed description of your claim, including relevant dates, damages, and what you're seeking"
-                rows={6}
-              />
-            </div>
             <div>
               <Label htmlFor="zip-code">Zip Code of Filing Location</Label>
               <div className="flex gap-2">
@@ -438,6 +420,14 @@ const EligibilityChecker = () => {
               <p className="text-sm text-muted-foreground mt-1">
                 Enter the zip code where you plan to file your small claims case, or use your current location.
               </p>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="filing-fee"
+                checked={formData.canPayFee}
+                onCheckedChange={(checked) => updateFormData("canPayFee", checked)}
+              />
+              <Label htmlFor="filing-fee">I can afford the $50 filing fee</Label>
             </div>
           </div>
         );
