@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { isEligibleForSmallClaim } from "@/logic/EligibilityLogic";
+import { EligibilityForm } from "@/logic/EligibilityLogic";
 
 interface FormData {
   age: string;
@@ -103,9 +103,55 @@ const EligibilityChecker = () => {
       });
     }
     
-    // Call the local eligibility logic function
-    const formDataJson = JSON.stringify(formData);
-    const eligibility = isEligibleForSmallClaim(formDataJson);
+    // Create EligibilityForm object and populate with form data
+    const eligibilityForm = new EligibilityForm(JSON.stringify(formData));
+    
+    // Set properties from form data
+    (eligibilityForm as any).age = parseInt(formData.age) || 0;
+    (eligibilityForm as any).claimNature = formData.claimNature;
+    (eligibilityForm as any).claimAmount = parseFloat(formData.claimAmount) || 0;
+    (eligibilityForm as any).claimType = formData.claimType;
+    (eligibilityForm as any).defendantType = formData.defendantType;
+    (eligibilityForm as any).defendantEthnicity = formData.defendantEthnicity;
+    (eligibilityForm as any).defendantIncome = parseFloat(formData.defendantIncome) || 0;
+    (eligibilityForm as any).plaintiffType = formData.plaintiffType;
+    (eligibilityForm as any).plaintiffEthnicity = formData.plaintiffEthnicity;
+    (eligibilityForm as any).plaintiffIncome = parseFloat(formData.plaintiffIncome) || 0;
+    (eligibilityForm as any).settlementAttempts = formData.settlementAttempts === 'yes';
+    (eligibilityForm as any).canPayFees = formData.canPayFee;
+    (eligibilityForm as any).selfRepresentation = formData.selfRepresentation === 'yes';
+    (eligibilityForm as any).zipCode = parseInt(formData.zipCode) || 0;
+    
+    // Set incident date based on timeframe
+    if (formData.timeframe) {
+      const today = new Date();
+      let incidentDate = new Date();
+      
+      switch (formData.timeframe) {
+        case 'within-30-days':
+          incidentDate = new Date(today.getTime() - 15 * 24 * 60 * 60 * 1000); // 15 days ago
+          break;
+        case '1-6-months':
+          incidentDate = new Date(today.getTime() - 3 * 30 * 24 * 60 * 60 * 1000); // 3 months ago
+          break;
+        case '6-12-months':
+          incidentDate = new Date(today.getTime() - 9 * 30 * 24 * 60 * 60 * 1000); // 9 months ago
+          break;
+        case '1-2-years':
+          incidentDate = new Date(today.getTime() - 1.5 * 365 * 24 * 60 * 60 * 1000); // 1.5 years ago
+          break;
+        case '2-3-years':
+          incidentDate = new Date(today.getTime() - 2.5 * 365 * 24 * 60 * 60 * 1000); // 2.5 years ago
+          break;
+        case 'over-3-years':
+          incidentDate = new Date(today.getTime() - 4 * 365 * 24 * 60 * 60 * 1000); // 4 years ago
+          break;
+      }
+      (eligibilityForm as any).incidentDate = incidentDate;
+    }
+    
+    // Call the eligibility check method
+    const eligibility = eligibilityForm.isEligible();
     setEligibilityResult(eligibility);
     
     // Track successful submission
