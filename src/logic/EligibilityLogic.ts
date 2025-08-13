@@ -23,7 +23,7 @@ export class EligibilityForm {
   private zipCode: number;
   constructor(public input: string) {}
 
-  public isEligible(): boolean {
+  public isEligible(): [boolean, string[]] {
     // Implement eligibility logic here
     let inEligibleMessages: string[] = []
     let isEligible = true
@@ -74,7 +74,7 @@ export class EligibilityForm {
 
     console.log("Eligibility check messages:", inEligibleMessages);
 
-    return isEligible;
+    return [isEligible, inEligibleMessages];
   }
 }
 

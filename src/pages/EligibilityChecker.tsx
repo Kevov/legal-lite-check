@@ -133,7 +133,7 @@ const EligibilityChecker = () => {
     
     // Call the eligibility check method
     const eligibility = eligibilityForm.isEligible();
-    setEligibilityResult(eligibility);
+    setEligibilityResult(eligibility[0]);
     
     // Track successful submission
     if (typeof window !== 'undefined' && (window as any).gtag) {
