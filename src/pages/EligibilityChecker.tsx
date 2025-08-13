@@ -38,6 +38,7 @@ const EligibilityChecker = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [eligibilityResult, setEligibilityResult] = useState<boolean | null>(null);
+  const [ineligibleMessages, setIneligibleMessages] = useState<string[]>([]);
   const { toast } = useToast();
   
   const [formData, setFormData] = useState<FormData>({
@@ -134,6 +135,7 @@ const EligibilityChecker = () => {
     // Call the eligibility check method
     const eligibility = eligibilityForm.isEligible();
     setEligibilityResult(eligibility[0]);
+    setIneligibleMessages(eligibility[1]);
     
     // Track successful submission
     if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -513,6 +515,19 @@ const EligibilityChecker = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+              {!eligibilityResult && ineligibleMessages.length > 0 && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-destructive">Issues Found:</h3>
+                  <ul className="space-y-3">
+                    {ineligibleMessages.map((message, index) => (
+                      <li key={index} className="flex items-start gap-3">
+                        <XCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
+                        <span className="text-sm">{message}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div>
                 <h3 className="text-lg font-semibold mb-3">Helpful Resources</h3>
                 <div className="space-y-2">
@@ -549,6 +564,7 @@ const EligibilityChecker = () => {
               <div className="flex gap-3">
                 <Button onClick={() => {
                   setEligibilityResult(null);
+                  setIneligibleMessages([]);
                   setCurrentStep(1);
                   setFormData({
                     age: "",
