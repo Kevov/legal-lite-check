@@ -31,7 +31,7 @@ const Index = () => {
               <li>• If you have the necessary information to proceed</li>
               <li>• Resources and next steps for your situation</li>
             </ul>
-            <Link to="/legal-lite-check/eligibility">
+            <Link to="/smallclaim-eligibility-checker/eligibility">
               <Button className="w-full">
                 Start Eligibility Check
                 <ArrowRight className="h-4 w-4 ml-2" />
