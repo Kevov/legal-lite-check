@@ -56,7 +56,7 @@ const EligibilityChecker = () => {
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const totalSteps = 6;
+  const totalSteps = 5;
 
   // Google Analytics tracking function
   const trackFieldInteraction = (fieldName: string, value: any, step: number) => {
@@ -191,7 +191,7 @@ const EligibilityChecker = () => {
       case 2:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Claim Details</h3>
+            <h3 className="text-lg font-medium">Claim Details & Type</h3>
             <div>
               <Label>Nature of Claim</Label>
               <RadioGroup
@@ -218,13 +218,6 @@ const EligibilityChecker = () => {
                 placeholder="Enter claim amount (if applicable)"
               />
             </div>
-          </div>
-        );
-
-      case 3:
-        return (
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium">Type of Claim & Timeframe</h3>
             <div>
               <Label>Select Claim Type</Label>
               <Select value={formData.claimType} onValueChange={(value) => updateFormData("claimType", value)}>
@@ -276,7 +269,7 @@ const EligibilityChecker = () => {
           </div>
         );
 
-      case 4:
+      case 3:
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Defendant Information</h3>
@@ -332,7 +325,7 @@ const EligibilityChecker = () => {
           </div>
         );
 
-      case 5:
+      case 4:
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Your Information</h3>
@@ -403,7 +396,7 @@ const EligibilityChecker = () => {
           </div>
         );
 
-      case 6:
+      case 5:
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Final Details & Filing Location</h3>
