@@ -7,7 +7,11 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin, CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { EligibilityForm } from "@/logic/EligibilityLogic";
 
@@ -22,7 +26,7 @@ interface FormData {
   plaintiffType: string;
   plaintiffEthnicity: string;
   plaintiffIncome: string;
-  timeframe: string;
+  incidentDate: Date | undefined;
   settlementAttempts: string;
   canPayFee: boolean;
   claimDescription: string;
@@ -47,7 +51,7 @@ const EligibilityChecker = () => {
     plaintiffType: "",
     plaintiffEthnicity: "",
     plaintiffIncome: "",
-    timeframe: "",
+    incidentDate: undefined,
     settlementAttempts: "",
     canPayFee: false,
     claimDescription: "",
@@ -122,32 +126,9 @@ const EligibilityChecker = () => {
     (eligibilityForm as any).selfRepresentation = formData.selfRepresentation === 'yes';
     (eligibilityForm as any).zipCode = parseInt(formData.zipCode) || 0;
     
-    // Set incident date based on timeframe
-    if (formData.timeframe) {
-      const today = new Date();
-      let incidentDate = new Date();
-      
-      switch (formData.timeframe) {
-        case 'within-30-days':
-          incidentDate = new Date(today.getTime() - 15 * 24 * 60 * 60 * 1000); // 15 days ago
-          break;
-        case '1-6-months':
-          incidentDate = new Date(today.getTime() - 3 * 30 * 24 * 60 * 60 * 1000); // 3 months ago
-          break;
-        case '6-12-months':
-          incidentDate = new Date(today.getTime() - 9 * 30 * 24 * 60 * 60 * 1000); // 9 months ago
-          break;
-        case '1-2-years':
-          incidentDate = new Date(today.getTime() - 1.5 * 365 * 24 * 60 * 60 * 1000); // 1.5 years ago
-          break;
-        case '2-3-years':
-          incidentDate = new Date(today.getTime() - 2.5 * 365 * 24 * 60 * 60 * 1000); // 2.5 years ago
-          break;
-        case 'over-3-years':
-          incidentDate = new Date(today.getTime() - 4 * 365 * 24 * 60 * 60 * 1000); // 4 years ago
-          break;
-      }
-      (eligibilityForm as any).incidentDate = incidentDate;
+    // Set incident date from form data
+    if (formData.incidentDate) {
+      (eligibilityForm as any).incidentDate = formData.incidentDate;
     }
     
     // Call the eligibility check method
@@ -282,19 +263,34 @@ const EligibilityChecker = () => {
             </div>
             <div>
               <Label>When did the incident occur?</Label>
-              <Select value={formData.timeframe} onValueChange={(value) => updateFormData("timeframe", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select timeframe" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="within-30-days">Within 30 days</SelectItem>
-                  <SelectItem value="1-6-months">1-6 months ago</SelectItem>
-                  <SelectItem value="6-12-months">6-12 months ago</SelectItem>
-                  <SelectItem value="1-2-years">1-2 years ago</SelectItem>
-                  <SelectItem value="2-3-years">2-3 years ago</SelectItem>
-                  <SelectItem value="over-3-years">Over 3 years ago</SelectItem>
-                </SelectContent>
-              </Select>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !formData.incidentDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {formData.incidentDate ? (
+                      format(formData.incidentDate, "PPP")
+                    ) : (
+                      <span>Select incident date</span>
+                    )}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={formData.incidentDate}
+                    onSelect={(date) => updateFormData("incidentDate", date)}
+                    disabled={(date) => date > new Date()}
+                    initialFocus
+                    className={cn("p-3 pointer-events-auto")}
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div>
               <Label>Have you attempted to settle this matter outside of court?</Label>
@@ -565,7 +561,7 @@ const EligibilityChecker = () => {
                     plaintiffType: "",
                     plaintiffEthnicity: "",
                     plaintiffIncome: "",
-                    timeframe: "",
+                    incidentDate: undefined,
                     settlementAttempts: "",
                     canPayFee: false,
                     claimDescription: "",
