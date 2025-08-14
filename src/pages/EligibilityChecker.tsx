@@ -554,6 +554,12 @@ const EligibilityChecker = () => {
                     <div className="text-sm text-muted-foreground">Guides in PDF format for Washington State</div>
                   </a>
                 </div>
+                <div className="space-y-2">
+                  <p className="text-sm text-muted-foreground mt-1">
+                    DISCLAIMER: ClaimRunnerAI is not a law firm and does not provide legal advice. Our platform offers automated tools and publicly available information to help you navigate the small claims process in King County, Washington State. You are solely responsible for any actions you take. If you need legal advice, we encourage you to consult a licensed attorney
+                  </p>
+                </div>
+                
               </div>
               <div className="flex gap-3">
                 <Button onClick={() => {
