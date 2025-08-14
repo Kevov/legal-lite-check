@@ -29,7 +29,6 @@ interface FormData {
   incidentDate: Date | undefined;
   settlementAttempts: string;
   canPayFee: boolean;
-  claimDescription: string;
   zipCode: string;
   selfRepresentation: string;
 }
@@ -55,7 +54,6 @@ const EligibilityChecker = () => {
     incidentDate: undefined,
     settlementAttempts: "",
     canPayFee: false,
-    claimDescription: "",
     zipCode: "",
     selfRepresentation: ""
   });
@@ -111,22 +109,6 @@ const EligibilityChecker = () => {
     // Create EligibilityForm object and populate with form data
     const eligibilityForm = new EligibilityForm(JSON.stringify(formData));
     
-    // Set properties from form data
-    (eligibilityForm as any).age = parseInt(formData.age) || 0;
-    (eligibilityForm as any).claimNature = formData.claimNature;
-    (eligibilityForm as any).claimAmount = parseFloat(formData.claimAmount) || 0;
-    (eligibilityForm as any).claimType = formData.claimType;
-    (eligibilityForm as any).defendantType = formData.defendantType;
-    (eligibilityForm as any).defendantEthnicity = formData.defendantEthnicity;
-    (eligibilityForm as any).defendantIncome = parseFloat(formData.defendantIncome) || 0;
-    (eligibilityForm as any).plaintiffType = formData.plaintiffType;
-    (eligibilityForm as any).plaintiffEthnicity = formData.plaintiffEthnicity;
-    (eligibilityForm as any).plaintiffIncome = parseFloat(formData.plaintiffIncome) || 0;
-    (eligibilityForm as any).settlementAttempts = formData.settlementAttempts === 'yes';
-    (eligibilityForm as any).canPayFees = formData.canPayFee;
-    (eligibilityForm as any).selfRepresentation = formData.selfRepresentation === 'yes';
-    (eligibilityForm as any).zipCode = parseInt(formData.zipCode) || 0;
-    
     // Set incident date from form data
     if (formData.incidentDate) {
       (eligibilityForm as any).incidentDate = formData.incidentDate;
@@ -144,6 +126,21 @@ const EligibilityChecker = () => {
         eligibility_result: eligibility
       });
     }
+
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'plaintiff_info', {
+          age: eligibilityForm.getAge(),
+          claimType: eligibilityForm.getClaimType(),
+          defendantType: eligibilityForm.getDefendantType(),
+          defendantEthnicity: eligibilityForm.getDefendantEthnicity(),
+          defendantIncome: eligibilityForm.getDefendantIncome(),
+          plaintiffType: eligibilityForm.getPlaintiffType(),
+          plaintiffEthnicity: eligibilityForm.getPlaintiffEthnicity(),
+          plaintiffIncome: eligibilityForm.getPlaintiffIncome(),
+          zipCode: eligibilityForm.getZipCode(),
+          form_name: 'small_claims_eligibility'
+        });
+      }
     
     setIsSubmitting(false);
   };
@@ -578,7 +575,6 @@ const EligibilityChecker = () => {
                     incidentDate: undefined,
                     settlementAttempts: "",
                     canPayFee: false,
-                    claimDescription: "",
                     zipCode: "",
                     selfRepresentation: ""
                   });
