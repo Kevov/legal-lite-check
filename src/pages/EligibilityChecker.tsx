@@ -30,6 +30,8 @@ interface FormData {
   settlementAttempts: string;
   canPayFee: boolean;
   zipCode: string;
+  incidentZipCode: string;
+  defendantZipCode: string;
   selfRepresentation: string;
 }
 
@@ -55,6 +57,8 @@ const EligibilityChecker = () => {
     settlementAttempts: "",
     canPayFee: false,
     zipCode: "",
+    incidentZipCode: "",
+    defendantZipCode: "",
     selfRepresentation: ""
   });
 
@@ -291,6 +295,17 @@ const EligibilityChecker = () => {
               </Popover>
             </div>
             <div>
+              <Label htmlFor="incidentZipCode">ZIP Code of Incident Location</Label>
+              <Input
+                id="incidentZipCode"
+                type="text"
+                value={formData.incidentZipCode}
+                onChange={(e) => updateFormData("incidentZipCode", e.target.value)}
+                placeholder="Enter ZIP code where incident occurred"
+                maxLength={5}
+              />
+            </div>
+            <div>
               <Label>Have you attempted to settle this matter outside of court?</Label>
               <RadioGroup
                 value={formData.settlementAttempts}
@@ -360,6 +375,17 @@ const EligibilityChecker = () => {
                   <SelectItem value="over-100k">Over $100,000</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+            <div>
+              <Label htmlFor="defendantZipCode">Defendant's ZIP Code</Label>
+              <Input
+                id="defendantZipCode"
+                type="text"
+                value={formData.defendantZipCode}
+                onChange={(e) => updateFormData("defendantZipCode", e.target.value)}
+                placeholder="Enter defendant's ZIP code"
+                maxLength={5}
+              />
             </div>
           </div>
         );
@@ -581,6 +607,8 @@ const EligibilityChecker = () => {
                     settlementAttempts: "",
                     canPayFee: false,
                     zipCode: "",
+                    incidentZipCode: "",
+                    defendantZipCode: "",
                     selfRepresentation: ""
                   });
                   
