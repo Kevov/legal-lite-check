@@ -148,7 +148,7 @@ const EligibilityChecker = () => {
     setIsSubmitting(false);
   };
 
-  const getCurrentLocation = async () => {
+  const getCurrentLocation = async (fieldName: 'zipCode' | 'incidentZipCode' | 'defendantZipCode') => {
     setIsLoadingLocation(true);
     
     try {
@@ -176,10 +176,15 @@ const EligibilityChecker = () => {
         const zipCode = data.address?.postcode || "";
         
         if (zipCode) {
-          updateFormData("zipCode", zipCode);
+          updateFormData(fieldName, zipCode);
+          const fieldLabels = {
+            zipCode: "your location",
+            incidentZipCode: "incident location", 
+            defendantZipCode: "defendant's address"
+          };
           toast({
             title: "Location found",
-            description: `Zip code ${zipCode} has been filled in automatically.`,
+            description: `ZIP code ${zipCode} has been filled in for ${fieldLabels[fieldName]}.`,
           });
         } else {
           throw new Error("Could not determine zip code from location");
@@ -190,7 +195,7 @@ const EligibilityChecker = () => {
     } catch (error: any) {
       toast({
         title: "Location error",
-        description: error.message || "Could not get your location. Please enter zip code manually.",
+        description: error.message || "Could not get your location. Please enter ZIP code manually.",
         variant: "destructive",
       });
     } finally {
@@ -296,14 +301,27 @@ const EligibilityChecker = () => {
             </div>
             <div>
               <Label htmlFor="incidentZipCode">ZIP Code of Incident Location</Label>
-              <Input
-                id="incidentZipCode"
-                type="text"
-                value={formData.incidentZipCode}
-                onChange={(e) => updateFormData("incidentZipCode", e.target.value)}
-                placeholder="Enter ZIP code where incident occurred"
-                maxLength={5}
-              />
+              <div className="flex gap-2">
+                <Input
+                  id="incidentZipCode"
+                  type="text"
+                  value={formData.incidentZipCode}
+                  onChange={(e) => updateFormData("incidentZipCode", e.target.value)}
+                  placeholder="Enter ZIP code where incident occurred"
+                  maxLength={5}
+                  className="flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => getCurrentLocation('incidentZipCode')}
+                  disabled={isLoadingLocation}
+                  className="shrink-0"
+                >
+                  <MapPin className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
             <div>
               <Label>Have you attempted to settle this matter outside of court?</Label>
@@ -378,14 +396,27 @@ const EligibilityChecker = () => {
             </div>
             <div>
               <Label htmlFor="defendantZipCode">Defendant's ZIP Code</Label>
-              <Input
-                id="defendantZipCode"
-                type="text"
-                value={formData.defendantZipCode}
-                onChange={(e) => updateFormData("defendantZipCode", e.target.value)}
-                placeholder="Enter defendant's ZIP code"
-                maxLength={5}
-              />
+              <div className="flex gap-2">
+                <Input
+                  id="defendantZipCode"
+                  type="text"
+                  value={formData.defendantZipCode}
+                  onChange={(e) => updateFormData("defendantZipCode", e.target.value)}
+                  placeholder="Enter defendant's ZIP code"
+                  maxLength={5}
+                  className="flex-1"
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => getCurrentLocation('defendantZipCode')}
+                  disabled={isLoadingLocation}
+                  className="shrink-0"
+                >
+                  <MapPin className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         );
@@ -478,7 +509,7 @@ const EligibilityChecker = () => {
                 <Button
                   type="button"
                   variant="outline"
-                  onClick={getCurrentLocation}
+                  onClick={() => getCurrentLocation('zipCode')}
                   disabled={isLoadingLocation}
                   className="shrink-0"
                 >
