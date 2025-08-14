@@ -592,7 +592,7 @@ const EligibilityChecker = () => {
                 }} variant="outline">
                   Start Over
                 </Button>
-                <Button onClick={() => window.location.href = "/"}>
+                <Button onClick={() => window.location.href = "/legal-lite-check/"}>
                   Back to Home
                 </Button>
               </div>
