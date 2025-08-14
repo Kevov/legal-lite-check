@@ -101,7 +101,7 @@ const EligibilityChecker = () => {
     
     // Track form submission attempt
     if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'form_submission_started', {
+      (window as any).gtag('event', 'form_submit', {
         form_name: 'small_claims_eligibility'
       });
     }
@@ -128,7 +128,7 @@ const EligibilityChecker = () => {
     }
 
     if (typeof window !== 'undefined' && (window as any).gtag) {
-        (window as any).gtag('event', 'plaintiff_info', {
+        (window as any).gtag('event', 'submission_info', {
           age: eligibilityForm.getAge(),
           claimType: eligibilityForm.getClaimType(),
           defendantType: eligibilityForm.getDefendantType(),
@@ -138,7 +138,6 @@ const EligibilityChecker = () => {
           plaintiffEthnicity: eligibilityForm.getPlaintiffEthnicity(),
           plaintiffIncome: eligibilityForm.getPlaintiffIncome(),
           zipCode: eligibilityForm.getZipCode(),
-          form_name: 'small_claims_eligibility'
         });
       }
     
