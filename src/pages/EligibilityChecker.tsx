@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -13,7 +12,8 @@ import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin, CalendarIcon } fro
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { EligibilityForm } from "@/logic/EligibilityLogic";
+import { EligibilityForm, Ethnicity } from "@/logic/EligibilityLogic";
+import { ClaimType } from "@/logic/EligibilityLogic";
 
 interface FormData {
   age: string;
@@ -244,7 +244,7 @@ const EligibilityChecker = () => {
                 type="number"
                 value={formData.claimAmount}
                 onChange={(e) => updateFormData("claimAmount", e.target.value)}
-                placeholder="Enter claim amount (if applicable)"
+                placeholder="Enter claim amount"
               />
             </div>
             <div>
@@ -254,12 +254,12 @@ const EligibilityChecker = () => {
                   <SelectValue placeholder="Choose claim type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="contract">Contract Dispute</SelectItem>
-                  <SelectItem value="property">Property Damage</SelectItem>
-                  <SelectItem value="personal-injury">Personal Injury</SelectItem>
-                  <SelectItem value="landlord-tenant">Landlord/Tenant</SelectItem>
-                  <SelectItem value="debt">Debt Collection</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value={ClaimType.BreachOfContract}>{ClaimType.BreachOfContract}</SelectItem>
+                    <SelectItem value={ClaimType.PropertyDamage}>{ClaimType.PropertyDamage}</SelectItem>
+                  <SelectItem value={ClaimType.PersonalInjury}>{ClaimType.PersonalInjury}</SelectItem>
+                  <SelectItem value={ClaimType.LandlordTenantDispute}>{ClaimType.LandlordTenantDispute}</SelectItem>
+                  <SelectItem value={ClaimType.DebtCollection}>{ClaimType.DebtCollection}</SelectItem>
+                  <SelectItem value={ClaimType.Other}>{ClaimType.Other}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -340,13 +340,12 @@ const EligibilityChecker = () => {
                   <SelectValue placeholder="Select ethnicity" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
-                  <SelectItem value="white">White</SelectItem>
-                  <SelectItem value="black">Black or African American</SelectItem>
-                  <SelectItem value="hispanic">Hispanic or Latino</SelectItem>
-                  <SelectItem value="asian">Asian</SelectItem>
-                  <SelectItem value="native">Native American</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value={Ethnicity.White}>{Ethnicity.White}</SelectItem>
+                  <SelectItem value={Ethnicity.Black}>{Ethnicity.Black}</SelectItem>
+                  <SelectItem value={Ethnicity.Hispanic}>{Ethnicity.Hispanic}</SelectItem>
+                  <SelectItem value={Ethnicity.Asian}>{Ethnicity.Asian}</SelectItem>
+                  <SelectItem value={Ethnicity.NativeAmerican}>{Ethnicity.NativeAmerican}</SelectItem>
+                  <SelectItem value={Ethnicity.Other}>{Ethnicity.Other}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -396,13 +395,12 @@ const EligibilityChecker = () => {
                   <SelectValue placeholder="Select ethnicity" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="prefer-not-to-say">Prefer not to say</SelectItem>
-                  <SelectItem value="white">White</SelectItem>
-                  <SelectItem value="black">Black or African American</SelectItem>
-                  <SelectItem value="hispanic">Hispanic or Latino</SelectItem>
-                  <SelectItem value="asian">Asian</SelectItem>
-                  <SelectItem value="native">Native American</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
+                  <SelectItem value={Ethnicity.White}>{Ethnicity.White}</SelectItem>
+                  <SelectItem value={Ethnicity.Black}>{Ethnicity.Black}</SelectItem>
+                  <SelectItem value={Ethnicity.Hispanic}>{Ethnicity.Hispanic}</SelectItem>
+                  <SelectItem value={Ethnicity.Asian}>{Ethnicity.Asian}</SelectItem>
+                  <SelectItem value={Ethnicity.NativeAmerican}>{Ethnicity.NativeAmerican}</SelectItem>
+                  <SelectItem value={Ethnicity.Other}>{Ethnicity.Other}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
