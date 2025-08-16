@@ -63,7 +63,7 @@ const EligibilityChecker = () => {
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
-  const totalSteps = 5;
+  const totalSteps = 4;
 
   // Google Analytics tracking function
   const trackFieldInteraction = (fieldName: string, value: any, step: number) => {
@@ -208,23 +208,6 @@ const EligibilityChecker = () => {
       case 1:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Personal Information</h3>
-            <div>
-              <Label htmlFor="age">Your Age</Label>
-              <Input
-                id="age"
-                type="number"
-                value={formData.age}
-                onChange={(e) => updateFormData("age", e.target.value)}
-                placeholder="Enter your age"
-              />
-            </div>
-          </div>
-        );
-
-      case 2:
-        return (
-          <div className="space-y-4">
             <h3 className="text-lg font-medium">Claim Details & Type</h3>
             <div>
               <Label>Nature of Claim</Label>
@@ -365,7 +348,7 @@ const EligibilityChecker = () => {
           </div>
         );
 
-      case 3:
+      case 2:
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Defendant Information</h3>
@@ -444,10 +427,10 @@ const EligibilityChecker = () => {
           </div>
         );
 
-      case 4:
+      case 3:
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Your Information</h3>
+            <h3 className="text-lg font-medium">Claimant Information</h3>
             <div>
               <Label>Your Type</Label>
               <RadioGroup
@@ -463,6 +446,16 @@ const EligibilityChecker = () => {
                   <Label htmlFor="plaintiff-company">Company</Label>
                 </div>
               </RadioGroup>
+            </div>
+            <div>
+              <Label htmlFor="age">Your Age</Label>
+              <Input
+                id="age"
+                type="number"
+                value={formData.age}
+                onChange={(e) => updateFormData("age", e.target.value)}
+                placeholder="Enter your age"
+              />
             </div>
             <div>
               <Label>Your Ethnicity</Label>
@@ -514,7 +507,7 @@ const EligibilityChecker = () => {
           </div>
         );
 
-      case 5:
+      case 4:
         return (
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Final Details & Filing Location</h3>
