@@ -68,12 +68,19 @@ const Index = () => {
               </label>
             </div>
 
-            <Link to="/legal-lite-check/eligibility">
-              <Button className="w-full" disabled={!termsAccepted}>
+            {termsAccepted ? (
+              <Link to="/legal-lite-check/eligibility">
+                <Button className="w-full">
+                  Start Eligibility Check
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </Link>
+            ) : (
+              <Button className="w-full" disabled>
                 Start Eligibility Check
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
-            </Link>
+            )}
           </CardContent>
         </Card>
       </div>
