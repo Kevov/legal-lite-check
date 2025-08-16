@@ -270,34 +270,57 @@ const EligibilityChecker = () => {
             </div>
             <div>
               <Label>When did the incident occur?</Label>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full justify-start text-left font-normal",
-                      !formData.incidentDate && "text-muted-foreground"
-                    )}
-                  >
-                    <CalendarIcon className="mr-2 h-4 w-4" />
-                    {formData.incidentDate ? (
-                      format(formData.incidentDate, "PPP")
-                    ) : (
-                      <span>Select incident date</span>
-                    )}
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={formData.incidentDate}
-                    onSelect={(date) => updateFormData("incidentDate", date)}
-                    disabled={(date) => date > new Date()}
-                    initialFocus
-                    className={cn("p-3 pointer-events-auto")}
-                  />
-                </PopoverContent>
-              </Popover>
+              <div className="space-y-2">
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !formData.incidentDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {formData.incidentDate ? (
+                        format(formData.incidentDate, "PPP")
+                      ) : (
+                        <span>Select incident date</span>
+                      )}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={formData.incidentDate}
+                      onSelect={(date) => updateFormData("incidentDate", date)}
+                      disabled={(date) => date > new Date()}
+                      initialFocus
+                      captionLayout="dropdown-buttons"
+                      fromYear={1990}
+                      toYear={new Date().getFullYear()}
+                      className={cn("p-3 pointer-events-auto")}
+                    />
+                  </PopoverContent>
+                </Popover>
+                
+                <div className="text-sm text-muted-foreground">
+                  Or enter manually:
+                </div>
+                <Input
+                  type="date"
+                  max={format(new Date(), "yyyy-MM-dd")}
+                  value={formData.incidentDate ? format(formData.incidentDate, "yyyy-MM-dd") : ""}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      updateFormData("incidentDate", new Date(e.target.value));
+                    } else {
+                      updateFormData("incidentDate", undefined);
+                    }
+                  }}
+                  placeholder="Enter date manually"
+                  className="w-full"
+                />
+              </div>
             </div>
             <div>
               <Label htmlFor="incidentZipCode">ZIP Code of Incident Location</Label>
