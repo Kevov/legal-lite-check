@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin, CalendarIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin, CalendarIcon, DollarSign } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -630,6 +630,26 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
+              {eligibilityResult && (
+                <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <DollarSign className="h-5 w-5 text-green-600" />
+                    <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">Potential Savings</h3>
+                  </div>
+                  <p className="text-green-600 dark:text-green-400 text-sm mb-2">
+                    You can save up to ${(() => {
+                      const claimAmount = parseFloat(formData.claimAmount || "0");
+                      // Typical lawyer fees are 30-40% of recovery, plus hourly rates
+                      // For small claims, estimate savings of 25-35% of claim amount in legal fees
+                      const estimatedSavings = Math.min(claimAmount * 0.30, 3000);
+                      return Math.round(estimatedSavings).toLocaleString();
+                    })()} by representing yourself in small claims court instead of hiring an attorney.
+                  </p>
+                  <p className="text-xs text-green-600 dark:text-green-400">
+                    *Estimated based on typical attorney fees. Actual savings may vary.
+                  </p>
+                </div>
+              )}
               {!eligibilityResult && ineligibleMessages.length > 0 && (
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold text-destructive">Issues Found:</h3>
