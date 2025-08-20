@@ -35,7 +35,7 @@ interface FormData {
   selfRepresentation: string;
 }
 
-const EligibilityChecker = ({ onBackToHome }) => {
+const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [eligibilityResult, setEligibilityResult] = useState<boolean | null>(null);
@@ -82,7 +82,51 @@ const EligibilityChecker = ({ onBackToHome }) => {
     trackFieldInteraction(field, value, currentStep);
   };
 
+  const validateCurrentStep = (): string[] => {
+    const errors: string[] = [];
+    
+    switch (currentStep) {
+      case 1:
+        if (!formData.claimNature) errors.push("Please select the nature of your claim");
+        if (!formData.claimAmount) errors.push("Please enter the claim amount");
+        if (!formData.claimType) errors.push("Please select a claim type");
+        if (!formData.incidentDate) errors.push("Please select the incident date");
+        if (!formData.incidentZipCode) errors.push("Please enter the incident ZIP code");
+        if (!formData.settlementAttempts) errors.push("Please indicate if you attempted settlement");
+        break;
+      case 2:
+        if (!formData.defendantType) errors.push("Please select the defendant type");
+        if (!formData.defendantEthnicity) errors.push("Please select the defendant's ethnicity");
+        if (!formData.defendantIncome) errors.push("Please select the defendant's income range");
+        if (!formData.defendantZipCode) errors.push("Please enter the defendant's ZIP code");
+        break;
+      case 3:
+        if (!formData.plaintiffType) errors.push("Please select your type");
+        if (!formData.age) errors.push("Please enter your age");
+        if (!formData.plaintiffEthnicity) errors.push("Please select your ethnicity");
+        if (!formData.plaintiffIncome) errors.push("Please select your income range");
+        if (!formData.selfRepresentation) errors.push("Please indicate if you will represent yourself");
+        break;
+      case 4:
+        if (!formData.zipCode) errors.push("Please enter the filing location ZIP code");
+        break;
+    }
+    
+    return errors;
+  };
+
   const nextStep = () => {
+    const errors = validateCurrentStep();
+    
+    if (errors.length > 0) {
+      toast({
+        title: "Please complete all required fields",
+        description: errors.join(", "),
+        variant: "destructive",
+      });
+      return;
+    }
+    
     if (currentStep < totalSteps) {
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'form_step_completed', {
@@ -101,6 +145,17 @@ const EligibilityChecker = ({ onBackToHome }) => {
   };
 
   const submitForm = async () => {
+    const errors = validateCurrentStep();
+    
+    if (errors.length > 0) {
+      toast({
+        title: "Please complete all required fields",
+        description: errors.join(", "),
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
     // Track form submission attempt
