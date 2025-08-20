@@ -35,7 +35,7 @@ interface FormData {
   selfRepresentation: string;
 }
 
-const EligibilityChecker = () => {
+const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [eligibilityResult, setEligibilityResult] = useState<boolean | null>(null);
@@ -690,14 +690,24 @@ const EligibilityChecker = () => {
               {renderStep()}
             </div>
             <div className="flex justify-between mt-6">
-              <Button
-                variant="outline"
-                onClick={prevStep}
-                disabled={currentStep === 1}
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Previous
-              </Button>
+              {onBackToHome && currentStep === 1 ? (
+                <Button 
+                  variant="outline" 
+                  onClick={onBackToHome}
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back to Home
+                </Button>
+              ) : (
+                <Button
+                  variant="outline"
+                  onClick={prevStep}
+                  disabled={currentStep === 1}
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Previous
+                </Button>
+              )}
               
               {currentStep === totalSteps ? (
                 <Button

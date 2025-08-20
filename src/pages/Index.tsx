@@ -10,7 +10,7 @@ const Index = () => {
   const [showEligibilityChecker, setShowEligibilityChecker] = useState(false);
 
   if (showEligibilityChecker) {
-    return <EligibilityChecker />;
+    return <EligibilityChecker onBackToHome={() => setShowEligibilityChecker(false)} />;
   }
 
   return (
