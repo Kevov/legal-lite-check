@@ -326,31 +326,6 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   placeholder="Enter incident date"
                   className="flex-1"
                 />
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="icon"
-                      className="shrink-0"
-                    >
-                      <CalendarIcon className="h-4 w-4" />
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={formData.incidentDate}
-                      onSelect={(date) => updateFormData("incidentDate", date)}
-                      disabled={(date) => date > new Date()}
-                      initialFocus
-                      captionLayout="dropdown-buttons"
-                      fromYear={1990}
-                      toYear={new Date().getFullYear()}
-                      className={cn("p-3 pointer-events-auto")}
-                    />
-                  </PopoverContent>
-                </Popover>
               </div>
             </div>
             <div>
