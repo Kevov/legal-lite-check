@@ -265,7 +265,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     switch (currentStep) {
       case 1:
         return (
-          <div className="space-y-4">
+          <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4 text-center">
             <h3 className="text-lg font-medium">Claim Details & Type</h3>
             <div>
               <Label>Nature of Claim</Label>
@@ -373,7 +373,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
 
       case 2:
         return (
-          <div className="space-y-4">
+          <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4 text-center">
             <h3 className="text-lg font-medium">Defendant Information</h3>
             <div>
               <Label>Defendant Type</Label>
@@ -452,7 +452,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
 
       case 3:
         return (
-          <div className="space-y-4">
+          <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4 text-center">
             <h3 className="text-lg font-medium">Claimant Information</h3>
             <div>
               <Label>Your Type</Label>
@@ -532,7 +532,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
 
       case 4:
         return (
-          <div className="space-y-4">
+          <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4 text-center">
             <h3 className="text-lg font-medium">Final Details & Filing Location</h3>
             <div>
               <Label htmlFor="zip-code">Zip Code of Filing Location</Label>
