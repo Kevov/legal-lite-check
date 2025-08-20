@@ -2,11 +2,16 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Scale, ArrowRight, AlertTriangle } from "lucide-react";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import EligibilityChecker from "./EligibilityChecker";
 
 const Index = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showEligibilityChecker, setShowEligibilityChecker] = useState(false);
+
+  if (showEligibilityChecker) {
+    return <EligibilityChecker />;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
@@ -69,19 +74,14 @@ const Index = () => {
               </label>
             </div>
 
-            {termsAccepted ? (
-              <Link to="/legal-lite-check/eligibility">
-                <Button className="w-full">
-                  Start Eligibility Check
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </Link>
-            ) : (
-              <Button className="w-full" disabled>
-                Start Eligibility Check
-                <ArrowRight className="h-4 w-4 ml-2" />
-              </Button>
-            )}
+            <Button 
+              className="w-full" 
+              disabled={!termsAccepted}
+              onClick={() => setShowEligibilityChecker(true)}
+            >
+              Start Eligibility Check
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
           </CardContent>
         </Card>
       </div>
