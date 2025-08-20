@@ -25,7 +25,7 @@ const Index = () => {
           Check your eligibility for small claims court and get helpful resources
         </p>
         
-        <Card className="text-left">
+        <Card className="text-center">
           <CardHeader>
             <CardTitle>Eligibility Checker</CardTitle>
             <CardDescription>
@@ -36,7 +36,7 @@ const Index = () => {
             <p className="text-sm text-muted-foreground mb-4">
               Our questionnaire will help you understand:
             </p>
-            <ul className="text-sm text-muted-foreground space-y-1 mb-6">
+            <ul className="text-sm text-muted-foreground space-y-1 mb-6 text-center list-none">
               <li>• Whether your claim meets court requirements</li>
               <li>• If you have the necessary information to proceed</li>
               <li>• Resources and next steps for your situation</li>
@@ -46,7 +46,7 @@ const Index = () => {
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
               <div className="flex items-start space-x-3">
                 <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
-                <div className="text-sm">
+                <div className="text-sm text-center flex-1">
                   <p className="font-medium text-amber-800 mb-2">Important Legal Disclaimer</p>
                   <p className="text-amber-700">
                     This eligibility checker is provided for informational purposes only and does not constitute professional legal advice. 
@@ -58,14 +58,14 @@ const Index = () => {
             </div>
 
             {/* Terms of Service Checkbox */}
-            <div className="flex items-start space-x-3 mb-6">
+            <div className="flex items-start justify-center space-x-3 mb-6">
               <Checkbox 
                 id="terms"
                 checked={termsAccepted}
                 onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
                 className="mt-1"
               />
-              <label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
+              <label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer text-center max-w-md">
                 I have read and understand ClaimRunnerAI's{" "}
                 <a href="#" className="text-primary underline hover:no-underline">
                   Terms of Service
