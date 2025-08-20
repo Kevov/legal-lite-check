@@ -35,7 +35,7 @@ interface FormData {
   selfRepresentation: string;
 }
 
-const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => {
+const EligibilityChecker = ({ onBackToHome }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [eligibilityResult, setEligibilityResult] = useState<boolean | null>(null);
