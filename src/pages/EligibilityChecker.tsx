@@ -658,7 +658,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 }} variant="outline">
                   Start Over
                 </Button>
-                <Button onClick={onBackToHome}}>
+                <Button onClick={onBackToHome}>
                   Back to Home
                 </Button>
               </div>
