@@ -46,7 +46,7 @@ const Index = () => {
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
               <div className="flex items-start space-x-3">
                 <AlertTriangle className="h-5 w-5 text-amber-600 mt-0.5 flex-shrink-0" />
-                <div className="text-sm text-center flex-1">
+                <div className="text-sm text-left">
                   <p className="font-medium text-amber-800 mb-2">Important Legal Disclaimer</p>
                   <p className="text-amber-700">
                     This eligibility checker is provided for informational purposes only and does not constitute professional legal advice. 
