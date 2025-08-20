@@ -658,7 +658,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 }} variant="outline">
                   Start Over
                 </Button>
-                <Button onClick={() => window.location.href = "/legal-lite-check/"}>
+                <Button onClick={onBackToHome}}>
                   Back to Home
                 </Button>
               </div>
