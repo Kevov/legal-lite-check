@@ -14,7 +14,7 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+    <div className="flex items-center justify-center bg-background p-4 min-h-full">
       <div className="text-center max-w-2xl">
         <div className="flex justify-center mb-6">
           {/* <Scale className="h-16 w-16 text-primary" /> */}
