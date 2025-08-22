@@ -106,4 +106,8 @@ All colors MUST be HSL.
   .font-bold {
     color: hsl(220, 100%, 50%); /* #06f */
   }
+
+  .track-loading {
+    color: hsl(220, 100%, 50%); /* #06f */
+  }
 }
