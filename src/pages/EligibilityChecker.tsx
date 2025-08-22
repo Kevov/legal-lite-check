@@ -739,7 +739,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
             </CardDescription>
             <div className="w-full bg-secondary rounded-full h-2">
               <div 
-                className="bg-primary h-2 rounded-full transition-all duration-300"
+                className="bg-primary h-2 rounded-full transition-all duration-300 track-loading"
                 style={{ width: `${(currentStep / totalSteps) * 100}%` }}
               />
             </div>
