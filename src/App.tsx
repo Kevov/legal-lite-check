@@ -22,7 +22,6 @@ const App = () => (
           <main className="flex-1">
             <Routes>
               <Route path="/legal-lite-check/" element={<Index />} />
-              <Route path="/legal-lite-check/eligibility" element={<EligibilityChecker onBackToHome={() => {}} />} />
               <Route path="/legal-lite-check/resources" element={<Resources />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
