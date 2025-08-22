@@ -300,12 +300,9 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   <SelectValue placeholder="Choose claim type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={ClaimType.BreachOfContract}>{ClaimType.BreachOfContract}</SelectItem>
-                    <SelectItem value={ClaimType.PropertyDamage}>{ClaimType.PropertyDamage}</SelectItem>
-                  <SelectItem value={ClaimType.PersonalInjury}>{ClaimType.PersonalInjury}</SelectItem>
-                  <SelectItem value={ClaimType.LandlordTenantDispute}>{ClaimType.LandlordTenantDispute}</SelectItem>
-                  <SelectItem value={ClaimType.DebtCollection}>{ClaimType.DebtCollection}</SelectItem>
-                  <SelectItem value={ClaimType.Other}>{ClaimType.Other}</SelectItem>
+                  {Object.values(ClaimType).map((type) => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

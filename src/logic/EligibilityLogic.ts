@@ -6,9 +6,16 @@ export enum ClaimType {
   PropertyDamage = "Property Damage",
   PersonalInjury = "Personal Injury",
   BreachOfContract = "Breach of Contract",
-  LandlordTenantDispute = "Landlord/Tenant Dispute",
-  UnpaidWages = "Unpaid Wages",
-  DebtCollection = "Debt Collection",
+  LeaseAgreement = "Lease Agreement",
+  Wages = "Wages",
+  Loan = "Loan",
+  Rent = "Rent",
+  GoodsAndServices = "Goods and Services",
+  AutomobileAccident = "Automobile Accident",
+  DamageDeposit = "Damage Deposit",
+  OpenAccount = "Open Account",
+  ServiceRendered = "Service Rendered",
+  WrittenInstrument = "Written Instrument",
   Other = "Other"
 }
 
