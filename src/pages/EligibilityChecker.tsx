@@ -27,12 +27,12 @@ interface FormData {
   plaintiffEthnicity: string;
   plaintiffIncome: string;
   incidentDate: Date | undefined;
-  settlementAttempts: string;
+  settlementAttempts: boolean;
   canPayFee: boolean;
   zipCode: string;
   incidentZipCode: string;
   defendantZipCode: string;
-  selfRepresentation: string;
+  selfRepresentation: boolean;
 }
 
 const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => {
@@ -54,12 +54,12 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     plaintiffEthnicity: "",
     plaintiffIncome: "",
     incidentDate: undefined,
-    settlementAttempts: "",
+    settlementAttempts: false,
     canPayFee: false,
     zipCode: "",
     incidentZipCode: "",
     defendantZipCode: "",
-    selfRepresentation: ""
+    selfRepresentation: false
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -95,7 +95,6 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
         if (!formData.claimType) errors.push("Claim type");
         if (!formData.incidentDate) errors.push("Incident date");
         if (!formData.incidentZipCode) errors.push("Incident ZIP code");
-        if (!formData.settlementAttempts) errors.push("Indication if you attempted settlement");
         break;
       case 2:
         if (!formData.defendantType) errors.push("Defendant type");
@@ -108,7 +107,6 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
         if (!formData.age) errors.push("Plaintiff age");
         if (!formData.plaintiffEthnicity) errors.push("Plaintiff ethnicity");
         if (!formData.plaintiffIncome) errors.push("Plaintiff income range");
-        if (!formData.selfRepresentation) errors.push("Indication if plaintiff will represent themselves");
         break;
       case 4:
         if (!formData.zipCode) errors.push("Filing location ZIP code");
@@ -349,21 +347,13 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 </Button>
               </div>
             </div>
-            <div>
-              <Label>Have you attempted to settle this matter outside of court?</Label>
-              <RadioGroup
-                value={formData.settlementAttempts}
-                onValueChange={(value) => updateFormData("settlementAttempts", value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="yes" id="settlement-yes" />
-                  <Label htmlFor="settlement-yes">Yes</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="no" id="settlement-no" />
-                  <Label htmlFor="settlement-no">No</Label>
-                </div>
-              </RadioGroup>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="settlement-attempts"
+                checked={formData.settlementAttempts}
+                onCheckedChange={(checked) => updateFormData("settlementAttempts", checked)}
+              />
+              <Label htmlFor="settlement-attempts">Have you attempted to settle this matter outside of court?</Label>
             </div>
           </div>
         );
@@ -508,21 +498,13 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label>Will you represent yourself in court?</Label>
-              <RadioGroup
-                value={formData.selfRepresentation}
-                onValueChange={(value) => updateFormData("selfRepresentation", value)}
-              >
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="yes" id="self-rep-yes" />
-                  <Label htmlFor="self-rep-yes">Yes</Label>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="no" id="self-rep-no" />
-                  <Label htmlFor="self-rep-no">No</Label>
-                </div>
-              </RadioGroup>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="self-representation"
+                checked={formData.selfRepresentation}
+                onCheckedChange={(checked) => updateFormData("selfRepresentation", checked)}
+              />
+              <Label htmlFor="self-representation">Will you represent yourself in court?</Label>
             </div>
           </div>
         );
@@ -734,12 +716,12 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     plaintiffEthnicity: "",
                     plaintiffIncome: "",
                     incidentDate: undefined,
-                    settlementAttempts: "",
+                    settlementAttempts: false,
                     canPayFee: false,
                     zipCode: "",
                     incidentZipCode: "",
                     defendantZipCode: "",
-                    selfRepresentation: ""
+                    selfRepresentation: false
                   });
                   
                   // Track form restart
