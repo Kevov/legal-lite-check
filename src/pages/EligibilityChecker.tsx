@@ -37,6 +37,8 @@ interface FormData {
   hasDefendantInfo: boolean;
   defendantInBankruptcy: boolean;
   firstClaimAgainstDefendant: boolean;
+  hasMoreThan12Claims: boolean;
+  understandsCourtAttendance: boolean;
 }
 
 const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => {
@@ -67,7 +69,9 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     hasGuardian: false,
     hasDefendantInfo: false,
     defendantInBankruptcy: false,
-    firstClaimAgainstDefendant: false
+    firstClaimAgainstDefendant: false,
+    hasMoreThan12Claims: false,
+    understandsCourtAttendance: false
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -548,6 +552,22 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               />
               <Label htmlFor="self-representation">Will you represent yourself in court?</Label>
             </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="more-than-12-claims"
+                checked={formData.hasMoreThan12Claims}
+                onCheckedChange={(checked) => updateFormData("hasMoreThan12Claims", checked)}
+              />
+              <Label htmlFor="more-than-12-claims">Has the claimant made more than 12 claims in the past year at this court?</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="understands-court-attendance"
+                checked={formData.understandsCourtAttendance}
+                onCheckedChange={(checked) => updateFormData("understandsCourtAttendance", checked)}
+              />
+              <Label htmlFor="understands-court-attendance">The claimant understand that they HAVE TO attend scheduled court hearings</Label>
+            </div>
           </div>
         );
 
@@ -767,7 +787,9 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     hasGuardian: false,
                     hasDefendantInfo: false,
                     defendantInBankruptcy: false,
-                    firstClaimAgainstDefendant: false
+                    firstClaimAgainstDefendant: false,
+                    hasMoreThan12Claims: false,
+                    understandsCourtAttendance: false
                   });
                   
                   // Track form restart
