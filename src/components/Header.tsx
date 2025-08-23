@@ -10,7 +10,7 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           <Link to="/legal-lite-check/" className="flex items-center space-x-2">
-            <img src="public/logo.png" alt="Logo" className="h-8 w-8" />
+            <img src="logo.png" alt="Logo" className="h-8 w-8" />
             <span className="text-xl font-bold">ClaimRunner AI</span>
           </Link>
           

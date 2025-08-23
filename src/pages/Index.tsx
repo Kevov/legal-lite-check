@@ -18,7 +18,7 @@ const Index = () => {
       <div className="text-center max-w-2xl">
         <div className="flex justify-center mb-6">
           {/* <Scale className="h-16 w-16 text-primary" /> */}
-          <img src="public/logo.png" alt="Logo" className="h-32 w-32 ml-4" />
+          <img src="logo.png" alt="Logo" className="h-32 w-32 ml-4" />
         </div>
         <h1 className="text-4xl font-bold mb-4">
           <span className="text-black">Small Claims Made</span> Simple
