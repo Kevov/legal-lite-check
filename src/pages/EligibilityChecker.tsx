@@ -680,7 +680,44 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 </div>
                 
               </div>
-              <div className="flex gap-3">
+
+              {/* Newsletter/Demo Signup Section */}
+              <div className="mt-8 p-6 border rounded-lg bg-card">
+                <h3 className="text-lg font-semibold mb-3">Stay Updated & Get Expert Help</h3>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Join our newsletter for legal tips and updates, or book a demo to see how we can help with your small claims case.
+                </p>
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="newsletter-name">Full Name</Label>
+                      <Input
+                        id="newsletter-name"
+                        type="text"
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="newsletter-email">Email Address</Label>
+                      <Input
+                        id="newsletter-email"
+                        type="email"
+                        placeholder="Enter your email address"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <Button variant="outline" className="flex-1">
+                      Subscribe to Newsletter
+                    </Button>
+                    <Button className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90">
+                      Book a Demo
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-6">
                 <Button onClick={() => {
                   setEligibilityResult(null);
                   setIneligibleMessages([]);
