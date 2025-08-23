@@ -405,12 +405,9 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   <SelectValue placeholder="Select ethnicity" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value={Ethnicity.White}>{Ethnicity.White}</SelectItem>
-                  <SelectItem value={Ethnicity.Black}>{Ethnicity.Black}</SelectItem>
-                  <SelectItem value={Ethnicity.Hispanic}>{Ethnicity.Hispanic}</SelectItem>
-                  <SelectItem value={Ethnicity.Asian}>{Ethnicity.Asian}</SelectItem>
-                  <SelectItem value={Ethnicity.NativeAmerican}>{Ethnicity.NativeAmerican}</SelectItem>
-                  <SelectItem value={Ethnicity.Other}>{Ethnicity.Other}</SelectItem>
+                  {Object.values(Ethnicity).map((type) => (
+                    <SelectItem key={type} value={type}>{type}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
