@@ -163,9 +163,7 @@ export class EligibilityForm {
       inEligibleMessages.push("Parties must attempt to resolve the dispute before filing. ");
       isEligible = false;
     }
-
-    console.log("Eligibility check messages:", inEligibleMessages);
-
+    
     return [isEligible, inEligibleMessages];
   }
 }

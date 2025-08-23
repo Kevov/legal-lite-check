@@ -469,6 +469,16 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 placeholder="Enter your age"
               />
             </div>
+            {parseInt(formData.age) < 18 && formData.age && (
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="has-guardian"
+                  checked={formData.hasGuardian}
+                  onCheckedChange={(checked) => updateFormData("hasGuardian", checked)}
+                />
+                <Label htmlFor="has-guardian">If you are under 18, do you have a guardian appointed?</Label>
+              </div>
+            )}
             <div>
               <Label>Your Ethnicity</Label>
               <Select value={formData.plaintiffEthnicity} onValueChange={(value) => updateFormData("plaintiffEthnicity", value)}>
@@ -500,16 +510,6 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 </SelectContent>
               </Select>
             </div>
-            {parseInt(formData.age) < 18 && formData.age && (
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="has-guardian"
-                  checked={formData.hasGuardian}
-                  onCheckedChange={(checked) => updateFormData("hasGuardian", checked)}
-                />
-                <Label htmlFor="has-guardian">Do you have a guardian appointed?</Label>
-              </div>
-            )}
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="self-representation"
