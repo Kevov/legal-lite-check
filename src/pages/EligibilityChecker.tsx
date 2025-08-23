@@ -95,7 +95,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
   };
 
   const validateCurrentStep = (): string[] => {
-    const enableErrors: boolean = false
+    const enableErrors: boolean = true
     const errors: string[] = [];
     
     if (!enableErrors) return errors;
