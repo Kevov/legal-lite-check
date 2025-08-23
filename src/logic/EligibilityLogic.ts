@@ -45,6 +45,12 @@ export class EligibilityForm {
   private canPayFees: boolean;
   private selfRepresentation: boolean;
   private zipCode: string;
+  private hasGuardian: boolean;
+  private hasDefendantInfo: boolean;
+  private defendantInBankruptcy: boolean;
+  private firstClaimAgainstDefendant: boolean;
+  private hasMoreThan12Claims: boolean;
+  private understandsCourtAttendance: boolean;
   constructor(public input: string) {
     try {
       const data = JSON.parse(input);
@@ -61,9 +67,15 @@ export class EligibilityForm {
       this.plaintiffIncome = data.plaintiffIncome;
       this.incidentDate = data.incidentDate ? new Date(data.incidentDate) : undefined;
       this.settlementAttempts = data.settlementAttempts;
-      this.canPayFees = data.canPayFees;
+      this.canPayFees = data.canPayFee;
       this.selfRepresentation = data.selfRepresentation;
       this.zipCode = data.zipCode;
+      this.hasGuardian = data.hasGuardian;
+      this.hasDefendantInfo = data.hasDefendantInfo;
+      this.defendantInBankruptcy = data.defendantInBankruptcy;
+      this.firstClaimAgainstDefendant = data.firstClaimAgainstDefendant;
+      this.hasMoreThan12Claims = data.hasMoreThan12Claims;
+      this.understandsCourtAttendance = data.understandsCourtAttendance;
     } catch (e) {
       throw new Error("Invalid input JSON string for EligibilityForm");
     }
@@ -114,13 +126,31 @@ export class EligibilityForm {
   public getZipCode() {
     return this.zipCode
   }
+  public getHasGuardian() {
+    return this.hasGuardian
+  }
+  public getHasDefendantInfo() {
+    return this.hasDefendantInfo
+  }
+  public getDefendantInBankruptcy() {
+    return this.defendantInBankruptcy
+  }
+  public getFirstClaimAgainstDefendant() {
+    return this.firstClaimAgainstDefendant
+  }
+  public getHasMoreThan12Claims() {
+    return this.hasMoreThan12Claims
+  }
+  public getUnderstandsCourtAttendance() {
+    return this.understandsCourtAttendance
+  }
 
   public isEligible(): [boolean, string[]] {
     // Implement eligibility logic here
     let inEligibleMessages: string[] = []
     let isEligible = true
-    if (this.age < 18) {
-      inEligibleMessages.push("You must be at least 18 years old to file a claim.");
+    if (this.age < 18 && !this.hasGuardian) {
+      inEligibleMessages.push("The claimant must be at least 18 years old or have a guardian appointed to file a claim.");
       isEligible = false;
     }
     if (this.claimAmount > 10000) {
@@ -136,7 +166,7 @@ export class EligibilityForm {
       isEligible = false;
     }
     if (!KING_COUNTY_ZIP_CODES.has(this.zipCode)) {
-      inEligibleMessages.push("You must reside in King County to file a claim.");
+      inEligibleMessages.push("The claimant must reside in King County to file a claim.");
       isEligible = false;
     }
     if (this.claimType === 'Other') {
@@ -144,7 +174,7 @@ export class EligibilityForm {
       isEligible = false;
     }
     if (!this.selfRepresentation) {
-      inEligibleMessages.push("You must represent yourself in small claims court.");
+      inEligibleMessages.push("The claimant must represent themselves in small claims court.");
       isEligible = false;
     }
     if (this.incidentDate) {
@@ -163,7 +193,31 @@ export class EligibilityForm {
       inEligibleMessages.push("Parties must attempt to resolve the dispute before filing. ");
       isEligible = false;
     }
-    
+    if (!this.hasDefendantInfo) {
+      inEligibleMessages.push("The claimant must have the defendant's legal name and valid residential address.");
+      isEligible = false;
+    }
+    if (this.defendantInBankruptcy) {
+      inEligibleMessages.push("The claimant cannot file a claim if the defendant is currently in bankruptcy.");
+      isEligible = false;
+    }
+    if (!this.firstClaimAgainstDefendant) {
+      inEligibleMessages.push("The claimant can only file one claim against the same defendant in a 12 month period.");
+      isEligible = false;
+    }
+    if (!this.canPayFees) {
+      inEligibleMessages.push("The claimant must be able to pay the court filing fees.");
+      isEligible = false;
+    }
+    if (this.hasMoreThan12Claims) {
+      inEligibleMessages.push("The claimant cannot have filed more than 12 claims in the past year.");
+      isEligible = false;
+    }
+    if (!this.understandsCourtAttendance) {
+      inEligibleMessages.push("The claimant must understand that they are required to attend the court hearing.");
+      isEligible = false;
+    }
+
     return [isEligible, inEligibleMessages];
   }
 }
