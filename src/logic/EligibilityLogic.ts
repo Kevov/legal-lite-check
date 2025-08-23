@@ -155,7 +155,7 @@ export class EligibilityForm {
         today.getDate()
       );
       if (this.incidentDate < sixYearsAgo) {
-        inEligibleMessages.push(`The incident date of ${this.incidentDate} is more than 6 years old to the date.`);
+        inEligibleMessages.push(`The incident date of ${this.incidentDate.toDateString()} is more than 6 years old to the date.`);
         isEligible = false;
       }
     }
@@ -171,13 +171,13 @@ export class EligibilityForm {
 }
 
 
-export function isEligibleForSmallClaim(input: string): boolean {
-//   // Define the criteria for small claim eligibility
-//   const maxClaimAmount = 5000; // Example threshold for small claims
-//   const claimAmount = parseFloat(input);
+// export function isEligibleForSmallClaim(input: string): boolean {
+// //   // Define the criteria for small claim eligibility
+// //   const maxClaimAmount = 5000; // Example threshold for small claims
+// //   const claimAmount = parseFloat(input);
 
-//   // Check if the input is a valid number and within the threshold
-    console.log("Checking eligibility for small claim with input:", input);
-    return true
+// //   // Check if the input is a valid number and within the threshold
+//     console.log("Checking eligibility for small claim with input:", input);
+//     return true
 
-}
+// }
