@@ -34,6 +34,9 @@ interface FormData {
   defendantZipCode: string;
   selfRepresentation: boolean;
   hasGuardian: boolean;
+  hasDefendantInfo: boolean;
+  defendantInBankruptcy: boolean;
+  firstClaimAgainstDefendant: boolean;
 }
 
 const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => {
@@ -61,7 +64,10 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     incidentZipCode: "",
     defendantZipCode: "",
     selfRepresentation: false,
-    hasGuardian: false
+    hasGuardian: false,
+    hasDefendantInfo: false,
+    defendantInBankruptcy: false,
+    firstClaimAgainstDefendant: false
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -357,6 +363,14 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               />
               <Label htmlFor="settlement-attempts">Have you attempted to settle this matter outside of court?</Label>
             </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="first-claim"
+                checked={formData.firstClaimAgainstDefendant}
+                onCheckedChange={(checked) => updateFormData("firstClaimAgainstDefendant", checked)}
+              />
+              <Label htmlFor="first-claim">Is this the claimant's first claim against the defendant on this issue?</Label>
+            </div>
           </div>
         );
 
@@ -435,6 +449,22 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   <MapPin className="h-4 w-4" />
                 </Button>
               </div>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="has-defendant-info"
+                checked={formData.hasDefendantInfo}
+                onCheckedChange={(checked) => updateFormData("hasDefendantInfo", checked)}
+              />
+              <Label htmlFor="has-defendant-info">Do you have the defendant's legal name and valid residential address?</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="defendant-bankruptcy"
+                checked={formData.defendantInBankruptcy}
+                onCheckedChange={(checked) => updateFormData("defendantInBankruptcy", checked)}
+              />
+              <Label htmlFor="defendant-bankruptcy">Is the defendant currently in bankruptcy?</Label>
             </div>
           </div>
         );
@@ -734,7 +764,10 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     incidentZipCode: "",
                     defendantZipCode: "",
                     selfRepresentation: false,
-                    hasGuardian: false
+                    hasGuardian: false,
+                    hasDefendantInfo: false,
+                    defendantInBankruptcy: false,
+                    firstClaimAgainstDefendant: false
                   });
                   
                   // Track form restart
