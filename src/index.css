@@ -109,6 +109,7 @@ All colors MUST be HSL.
 
   .track-loading {
     color: hsl(220, 100%, 50%); /* #06f */
+    background-color: hsl(220, 100%, 50%); /* #06f */
   }
 
   .btn-primary {
