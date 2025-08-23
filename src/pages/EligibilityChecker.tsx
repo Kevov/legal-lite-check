@@ -33,6 +33,7 @@ interface FormData {
   incidentZipCode: string;
   defendantZipCode: string;
   selfRepresentation: boolean;
+  hasGuardian: boolean;
 }
 
 const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => {
@@ -59,7 +60,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     zipCode: "",
     incidentZipCode: "",
     defendantZipCode: "",
-    selfRepresentation: false
+    selfRepresentation: false,
+    hasGuardian: false
   });
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(false);
@@ -498,6 +500,16 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 </SelectContent>
               </Select>
             </div>
+            {parseInt(formData.age) < 18 && formData.age && (
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="has-guardian"
+                  checked={formData.hasGuardian}
+                  onCheckedChange={(checked) => updateFormData("hasGuardian", checked)}
+                />
+                <Label htmlFor="has-guardian">Do you have a guardian appointed?</Label>
+              </div>
+            )}
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="self-representation"
@@ -721,7 +733,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     zipCode: "",
                     incidentZipCode: "",
                     defendantZipCode: "",
-                    selfRepresentation: false
+                    selfRepresentation: false,
+                    hasGuardian: false
                   });
                   
                   // Track form restart
