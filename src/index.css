@@ -110,4 +110,13 @@ All colors MUST be HSL.
   .track-loading {
     color: hsl(220, 100%, 50%); /* #06f */
   }
+
+  .btn-primary {
+    background-color: hsl(220, 100%, 50%) !important; /* #06f */
+    color: white !important;
+  }
+
+  .btn-primary:hover {
+    background-color: hsl(220, 100%, 45%) !important; /* darker shade */
+  }
 }

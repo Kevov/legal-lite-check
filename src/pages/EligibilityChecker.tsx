@@ -767,13 +767,14 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               
               {currentStep === totalSteps ? (
                 <Button
+                  className="btn-primary"
                   onClick={submitForm}
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? "Checking..." : "Check Eligibility"}
                 </Button>
               ) : (
-                <Button onClick={nextStep}>
+                <Button className="btn-primary" onClick={nextStep}>
                   Next
                   <ArrowRight className="h-4 w-4 ml-2" />
                 </Button>

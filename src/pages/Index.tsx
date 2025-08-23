@@ -75,7 +75,7 @@ const Index = () => {
             </div>
 
             <Button 
-              className="w-full" 
+              className="w-full btn-primary" 
               disabled={!termsAccepted}
               onClick={() => setShowEligibilityChecker(true)}
             >
