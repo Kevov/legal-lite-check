@@ -20,7 +20,9 @@ const Index = () => {
           {/* <Scale className="h-16 w-16 text-primary" /> */}
           <img src="public/logo.png" alt="Logo" className="h-32 w-32 ml-4" />
         </div>
-        <h1 className="text-4xl font-bold mb-4">Small Claims Helper</h1>
+        <h1 className="text-4xl font-bold mb-4">
+          <span className="text-black">Small Claims Made</span> Simple
+        </h1>
         <p className="text-xl text-muted-foreground mb-8">
           Check your eligibility for small claims court and get helpful resources
         </p>
