@@ -278,7 +278,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Claim Details & Type</h3>
             <div>
-              <Label>Nature of Claim</Label>
+              <Label className="pb-2">Nature of Claim</Label>
               <RadioGroup
                 value={formData.claimNature}
                 onValueChange={(value) => updateFormData("claimNature", value)}
@@ -383,7 +383,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Defendant Information</h3>
             <div>
-              <Label>Defendant Type</Label>
+              <Label className="pb-2">Defendant Type</Label>
               <RadioGroup
                 value={formData.defendantType}
                 onValueChange={(value) => updateFormData("defendantType", value)}
@@ -478,7 +478,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Claimant Information</h3>
             <div>
-              <Label>Your Type</Label>
+              <Label className="pb-2">Your Type</Label>
               <RadioGroup
                 value={formData.plaintiffType}
                 onValueChange={(value) => updateFormData("plaintiffType", value)}
