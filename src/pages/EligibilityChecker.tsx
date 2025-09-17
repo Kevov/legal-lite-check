@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Calendar } from "@/components/ui/calendar";
+import { Calendar } from 'react-calendar'
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin, CalendarIcon, DollarSign } from "lucide-react";
 import { format } from "date-fns";
@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { EligibilityForm, Ethnicity } from "@/logic/EligibilityLogic";
 import { ClaimType } from "@/logic/EligibilityLogic";
-
+import 'react-calendar/dist/Calendar.css';
 interface FormData {
   age: string;
   claimNature: string;
@@ -332,16 +332,14 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                       {formData.incidentDate ? format(formData.incidentDate, "PPP") : <span>Pick a date</span>}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={formData.incidentDate}
-                      onSelect={(date) => updateFormData("incidentDate", date)}
-                      disabled={(date) => date > new Date()}
-                      initialFocus
-                      className="pointer-events-auto"
-                    />
-                  </PopoverContent>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        minDate={new Date(2000, 0, 1)}
+                        value={formData.incidentDate}
+                        onChange={(date) => updateFormData("incidentDate", date as Date)}
+                        tileDisabled={({ date }) => date > new Date()}
+                      />
+                    </PopoverContent>
                 </Popover>
               </div>
             </div>
@@ -375,7 +373,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.settlementAttempts}
                 onCheckedChange={(checked) => updateFormData("settlementAttempts", checked)}
               />
-              <Label htmlFor="settlement-attempts">Have you attempted to settle this matter outside of court?</Label>
+              <Label htmlFor="settlement-attempts">The claimant has attempted to settle this matter outside of court</Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -383,7 +381,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.firstClaimAgainstDefendant}
                 onCheckedChange={(checked) => updateFormData("firstClaimAgainstDefendant", checked)}
               />
-              <Label htmlFor="first-claim">Is this the claimant's first claim against the defendant on this issue?</Label>
+              <Label htmlFor="first-claim">This is the claimant's first claim against the defendant on this issue</Label>
             </div>
           </div>
         );
@@ -467,7 +465,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.hasDefendantInfo}
                 onCheckedChange={(checked) => updateFormData("hasDefendantInfo", checked)}
               />
-              <Label htmlFor="has-defendant-info">Do you have the defendant's legal name and valid residential address?</Label>
+              <Label htmlFor="has-defendant-info">The claimant has the defendant's legal name and valid residential address</Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -475,7 +473,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.defendantInBankruptcy}
                 onCheckedChange={(checked) => updateFormData("defendantInBankruptcy", checked)}
               />
-              <Label htmlFor="defendant-bankruptcy">Is the defendant currently in bankruptcy?</Label>
+              <Label htmlFor="defendant-bankruptcy">The defendant is not currently in bankruptcy</Label>
             </div>
           </div>
         );
@@ -517,7 +515,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   checked={formData.hasGuardian}
                   onCheckedChange={(checked) => updateFormData("hasGuardian", checked)}
                 />
-                <Label htmlFor="has-guardian">If you are under 18, do you have a guardian appointed?</Label>
+                <Label htmlFor="has-guardian">If the claimant is under 18, they have a guardian appointed</Label>
               </div>
             )}
             <div>
@@ -557,7 +555,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.selfRepresentation}
                 onCheckedChange={(checked) => updateFormData("selfRepresentation", checked)}
               />
-              <Label htmlFor="self-representation">Will you represent yourself in court?</Label>
+              <Label htmlFor="self-representation">The claimant will represent themselves in court</Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -565,7 +563,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.hasMoreThan12Claims}
                 onCheckedChange={(checked) => updateFormData("hasMoreThan12Claims", checked)}
               />
-              <Label htmlFor="more-than-12-claims">Has the claimant made more than 12 claims in the past year at this court?</Label>
+              <Label htmlFor="more-than-12-claims">The claimant has not made more than 12 claims in the past year at this court</Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -620,7 +618,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.canPayFee}
                 onCheckedChange={(checked) => updateFormData("canPayFee", checked)}
               />
-              <Label htmlFor="filing-fee">I can afford the $50 filing fee</Label>
+              <Label htmlFor="filing-fee">The claimant can afford the $50 filing fee</Label>
             </div>
           </div>
         );
@@ -730,7 +728,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               <div className="mt-8 p-6 border rounded-lg bg-card">
                 <h3 className="text-lg font-semibold mb-3">Stay Updated & Get Expert Help</h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Join our newsletter for legal tips and updates, or book a demo to see how we can help with your small claims case.
+                  Book a Demo with us and learn how to best use our tool, or contact us for any questions, comments or feedback!
                 </p>
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -753,7 +751,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   </div>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Button variant="outline" className="flex-1">
-                      Subscribe to Newsletter
+                      Send Us Your Feedback
                     </Button>
                     <Button className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90">
                       Book a Demo

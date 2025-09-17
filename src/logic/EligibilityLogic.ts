@@ -21,7 +21,7 @@ export enum ClaimType {
 
 export enum Ethnicity {
   Asian = "Asian",
-  Black = "Aframican American",
+  Black = "African American",
   Hispanic = "Hispanic or Latino",
   NativeAmerican = "Native American or Alaska Native",
   PacificIslander = "Native Hawaiian or Other Pacific Islander",
@@ -48,9 +48,9 @@ export class EligibilityForm {
   private zipCode: string;
   private hasGuardian: boolean;
   private hasDefendantInfo: boolean;
-  private defendantInBankruptcy: boolean;
+  private defendantNotBankrupted: boolean;
   private firstClaimAgainstDefendant: boolean;
-  private hasMoreThan12Claims: boolean;
+  private hasFewerThan12Claims: boolean;
   private understandsCourtAttendance: boolean;
   constructor(public input: string) {
     try {
@@ -73,9 +73,9 @@ export class EligibilityForm {
       this.zipCode = data.zipCode;
       this.hasGuardian = data.hasGuardian;
       this.hasDefendantInfo = data.hasDefendantInfo;
-      this.defendantInBankruptcy = data.defendantInBankruptcy;
+      this.defendantNotBankrupted = data.defendantInBankruptcy;
       this.firstClaimAgainstDefendant = data.firstClaimAgainstDefendant;
-      this.hasMoreThan12Claims = data.hasMoreThan12Claims;
+      this.hasFewerThan12Claims = data.hasMoreThan12Claims;
       this.understandsCourtAttendance = data.understandsCourtAttendance;
     } catch (e) {
       throw new Error("Invalid input JSON string for EligibilityForm");
@@ -134,13 +134,13 @@ export class EligibilityForm {
     return this.hasDefendantInfo
   }
   public getDefendantInBankruptcy() {
-    return this.defendantInBankruptcy
+    return this.defendantNotBankrupted
   }
   public getFirstClaimAgainstDefendant() {
     return this.firstClaimAgainstDefendant
   }
   public getHasMoreThan12Claims() {
-    return this.hasMoreThan12Claims
+    return this.hasFewerThan12Claims
   }
   public getUnderstandsCourtAttendance() {
     return this.understandsCourtAttendance
@@ -150,6 +150,7 @@ export class EligibilityForm {
     // Implement eligibility logic here
     let inEligibleMessages: string[] = []
     let isEligible = true
+    console.log("Incident Date:", this.incidentDate);
     if (this.age < 18 && !this.hasGuardian) {
       inEligibleMessages.push("The claimant must be at least 18 years old or have a guardian appointed to file a claim.");
       isEligible = false;
@@ -198,7 +199,7 @@ export class EligibilityForm {
       inEligibleMessages.push("The claimant must have the defendant's legal name and valid residential address.");
       isEligible = false;
     }
-    if (this.defendantInBankruptcy) {
+    if (!this.defendantNotBankrupted) {
       inEligibleMessages.push("The claimant cannot file a claim if the defendant is currently in bankruptcy.");
       isEligible = false;
     }
@@ -210,7 +211,7 @@ export class EligibilityForm {
       inEligibleMessages.push("The claimant must be able to pay the court filing fees.");
       isEligible = false;
     }
-    if (this.hasMoreThan12Claims) {
+    if (!this.hasFewerThan12Claims) {
       inEligibleMessages.push("The claimant cannot have filed more than 12 claims in the past year.");
       isEligible = false;
     }
