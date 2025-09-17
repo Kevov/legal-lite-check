@@ -120,4 +120,15 @@ All colors MUST be HSL.
   .btn-primary:hover {
     background-color: hsl(220, 100%, 45%) !important; /* darker shade */
   }
+
+  /* Hide number input arrows */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 }
