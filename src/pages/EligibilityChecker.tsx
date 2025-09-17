@@ -8,7 +8,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Calendar } from 'react-calendar'
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin, CalendarIcon, DollarSign } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
+import { ArrowLeft, ArrowRight, CheckCircle, XCircle, MapPin, CalendarIcon, DollarSign, Send } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
@@ -46,6 +48,9 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [eligibilityResult, setEligibilityResult] = useState<boolean | null>(null);
   const [ineligibleMessages, setIneligibleMessages] = useState<string[]>([]);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [isSendingFeedback, setIsSendingFeedback] = useState(false);
   const { toast } = useToast();
   
   const [formData, setFormData] = useState<FormData>({
@@ -214,6 +219,39 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
       }
     
     setIsSubmitting(false);
+  };
+
+  const handleFeedbackSubmit = async () => {
+    if (!feedback.trim()) {
+      toast({
+        title: "Please enter your feedback",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsSendingFeedback(true);
+    
+    try {
+      // Simulate sending to placeholder email
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Feedback sent successfully!",
+        description: "Thank you for your feedback. We'll review it and get back to you soon.",
+      });
+      
+      setFeedback("");
+      setFeedbackOpen(false);
+    } catch (error) {
+      toast({
+        title: "Failed to send feedback",
+        description: "Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSendingFeedback(false);
+    }
   };
 
   const getCurrentLocation = async (fieldName: 'zipCode' | 'incidentZipCode' | 'defendantZipCode') => {
@@ -750,9 +788,49 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Button variant="outline" className="flex-1">
-                      Send Us Your Feedback
-                    </Button>
+                    <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
+                      <DialogTrigger asChild>
+                        <Button variant="outline" className="flex-1">
+                          Send Us Your Feedback
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-md">
+                        <DialogHeader>
+                          <DialogTitle>Send Us Your Feedback</DialogTitle>
+                          <DialogDescription>
+                            We'd love to hear your thoughts about our eligibility checker. Your feedback helps us improve!
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <Textarea
+                            placeholder="Please share your feedback, suggestions, or any issues you encountered..."
+                            value={feedback}
+                            onChange={(e) => setFeedback(e.target.value)}
+                            rows={4}
+                            className="resize-none"
+                          />
+                        </div>
+                        <DialogFooter className="flex-col sm:flex-row gap-2">
+                          <Button variant="outline" onClick={() => setFeedbackOpen(false)}>
+                            Cancel
+                          </Button>
+                          <Button 
+                            onClick={handleFeedbackSubmit} 
+                            disabled={isSendingFeedback}
+                            className="flex items-center gap-2"
+                          >
+                            {isSendingFeedback ? (
+                              "Sending..."
+                            ) : (
+                              <>
+                                <Send className="h-4 w-4" />
+                                Send Feedback
+                              </>
+                            )}
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
                     <Button className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90">
                       Book a Demo
                     </Button>
