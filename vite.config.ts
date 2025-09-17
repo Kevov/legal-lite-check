@@ -5,10 +5,13 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base:"/legal-lite-check/",
+  base: mode === 'production' ? "/legal-lite-check/" : "/",
   server: {
     host: "::",
     port: 8080,
+    hmr: {
+      clientPort: 8080,
+    },
   },
   plugins: [
     react(),
