@@ -319,7 +319,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
             <div>
               <Label>When did the incident occur?</Label>
               <div className="flex gap-2">
-                <Input
+                {/* <Input
                   type="date"
                   max={format(new Date(), "yyyy-MM-dd")}
                   value={formData.incidentDate ? format(formData.incidentDate, "yyyy-MM-dd") : ""}
@@ -332,7 +332,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   }}
                   placeholder="Enter incident date"
                   className="flex-1"
-                />
+                /> */}
+                <Calendar/>
               </div>
             </div>
             <div>
