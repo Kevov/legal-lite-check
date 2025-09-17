@@ -35,7 +35,7 @@ const Index = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="text-sm text-muted-foreground mb-2 font-medium">
               Our questionnaire will help you understand:
             </p>
             <ul className="text-sm text-muted-foreground space-y-1 mb-6 text-center list-none">
