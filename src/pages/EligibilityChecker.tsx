@@ -661,12 +661,6 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   <p className="text-xs text-green-600 dark:text-green-400 mb-3">
                     *Estimated based on typical attorney fees. Actual savings may vary.
                   </p>
-                  <Button 
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                    onClick={() => window.open('https://calendly.com/demo', '_blank')}
-                  >
-                    Book a Demo
-                  </Button>
                 </div>
               )}
               {!eligibilityResult && ineligibleMessages.length > 0 && (

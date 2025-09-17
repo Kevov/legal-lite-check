@@ -21,11 +21,11 @@ export enum ClaimType {
 
 export enum Ethnicity {
   Asian = "Asian",
-  Black = "Black or Aframican American",
+  Black = "Aframican American",
   Hispanic = "Hispanic or Latino",
   NativeAmerican = "Native American or Alaska Native",
   PacificIslander = "Native Hawaiian or Other Pacific Islander",
-  White = "White or Caucasian",
+  White = "Caucasian",
   Other = "Other"
 }
 
