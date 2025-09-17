@@ -319,21 +319,30 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
             <div>
               <Label>When did the incident occur?</Label>
               <div className="flex gap-2">
-                {/* <Input
-                  type="date"
-                  max={format(new Date(), "yyyy-MM-dd")}
-                  value={formData.incidentDate ? format(formData.incidentDate, "yyyy-MM-dd") : ""}
-                  onChange={(e) => {
-                    if (e.target.value) {
-                      updateFormData("incidentDate", new Date(e.target.value));
-                    } else {
-                      updateFormData("incidentDate", undefined);
-                    }
-                  }}
-                  placeholder="Enter incident date"
-                  className="flex-1"
-                /> */}
-                <Calendar/>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal",
+                        !formData.incidentDate && "text-muted-foreground"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {formData.incidentDate ? format(formData.incidentDate, "PPP") : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={formData.incidentDate}
+                      onSelect={(date) => updateFormData("incidentDate", date)}
+                      disabled={(date) => date > new Date()}
+                      initialFocus
+                      className="pointer-events-auto"
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
             <div>
