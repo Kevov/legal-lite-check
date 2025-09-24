@@ -94,6 +94,10 @@ All colors MUST be HSL.
   }
 }
 
+.react-calendar__month-view__days__day--weekend {
+  color: #000000;
+}
+
 @layer base {
   * {
     @apply border-border;

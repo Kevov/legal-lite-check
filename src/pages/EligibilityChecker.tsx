@@ -696,13 +696,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     <h3 className="text-lg font-semibold text-green-700 dark:text-green-300">Potential Savings</h3>
                   </div>
                   <p className="text-green-600 dark:text-green-400 text-sm mb-2">
-                    You can save up to ${(() => {
-                      const claimAmount = parseFloat(formData.claimAmount || "0");
-                      // Typical lawyer fees are 30-40% of recovery, plus hourly rates
-                      // For small claims, estimate savings of 25-35% of claim amount in legal fees
-                      const estimatedSavings = Math.min(claimAmount * 0.30, 3000);
-                      return Math.round(estimatedSavings).toLocaleString();
-                    })()} by representing yourself in small claims court instead of hiring an attorney.
+                    You can save between $300-800 by representing yourself in small claims court instead of hiring an attorney.
                   </p>
                   <p className="text-xs text-green-600 dark:text-green-400 mb-3">
                     *Estimated based on typical attorney fees. Actual savings may vary.
