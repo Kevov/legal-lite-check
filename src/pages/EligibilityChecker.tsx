@@ -51,6 +51,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
   const [feedbackOpen, setFeedbackOpen] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [isSendingFeedback, setIsSendingFeedback] = useState(false);
+  const [newsletterName, setNewsletterName] = useState("");
+  const [newsletterEmail, setNewsletterEmail] = useState("");
   const { toast } = useToast();
   
   const [formData, setFormData] = useState<FormData>({
@@ -757,6 +759,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                         id="newsletter-name"
                         type="text"
                         placeholder="Enter your full name"
+                        value={newsletterName}
+                        onChange={(e) => setNewsletterName(e.target.value)}
                       />
                     </div>
                     <div>
@@ -765,13 +769,19 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                         id="newsletter-email"
                         type="email"
                         placeholder="Enter your email address"
+                        value={newsletterEmail}
+                        onChange={(e) => setNewsletterEmail(e.target.value)}
                       />
                     </div>
                   </div>
                   <div className="flex flex-col sm:flex-row gap-3">
                     <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
                       <DialogTrigger asChild>
-                        <Button variant="outline" className="flex-1">
+                        <Button 
+                          variant="outline" 
+                          className="flex-1"
+                          disabled={!newsletterName.trim() || !newsletterEmail.trim()}
+                        >
                           Send Us Your Feedback
                         </Button>
                       </DialogTrigger>
@@ -814,6 +824,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     </Dialog>
                     <Button 
                       className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+                      disabled={!newsletterName.trim() || !newsletterEmail.trim()}
                       onClick={() => {
                         toast({
                           title: "Demo Request Sent",
