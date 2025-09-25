@@ -316,7 +316,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Claim Details & Type</h3>
             <div>
-              <Label className="pb-2">Nature of Claim</Label>
+              <Label className="pb-2">Nature of Claim <b style={{color: "red"}}>*</b></Label>
               <RadioGroup
                 value={formData.claimNature}
                 onValueChange={(value) => updateFormData("claimNature", value)}
@@ -332,7 +332,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </RadioGroup>
             </div>
             <div>
-              <Label htmlFor="amount">Claim Amount ($)</Label>
+              <Label htmlFor="amount">Claim Amount ($) <b style={{color: "red"}}>*</b></Label>
               <Input
                 id="amount"
                 type="number"
@@ -342,7 +342,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               />
             </div>
             <div>
-              <Label>Select Claim Type</Label>
+              <Label>Select Claim Type <b style={{color: "red"}}>*</b></Label>
               <Select value={formData.claimType} onValueChange={(value) => updateFormData("claimType", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Choose claim type" />
@@ -355,7 +355,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </Select>
             </div>
             <div>
-              <Label>When did the incident occur?</Label>
+              <Label>When did the incident occur? <b style={{color: "red"}}>*</b></Label>
               <div className="flex gap-2">
                 <Popover>
                   <PopoverTrigger asChild>
@@ -382,7 +382,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </div>
             </div>
             <div>
-              <Label htmlFor="incidentZipCode">ZIP Code of Incident Location</Label>
+              <Label htmlFor="incidentZipCode">ZIP Code of Incident Location <b style={{color: "red"}}>*</b></Label>
               <div className="flex gap-2">
                 <Input
                   id="incidentZipCode"
@@ -411,7 +411,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.settlementAttempts}
                 onCheckedChange={(checked) => updateFormData("settlementAttempts", checked)}
               />
-              <Label htmlFor="settlement-attempts">The claimant has attempted to settle this matter outside of court</Label>
+              <Label htmlFor="settlement-attempts">The claimant has attempted to settle this matter outside of court <b style={{color: "red"}}>*</b></Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -419,7 +419,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.firstClaimAgainstDefendant}
                 onCheckedChange={(checked) => updateFormData("firstClaimAgainstDefendant", checked)}
               />
-              <Label htmlFor="first-claim">This is the claimant's first claim against the defendant on this issue</Label>
+              <Label htmlFor="first-claim">This is the claimant's first claim against the defendant on this issue <b style={{color: "red"}}>*</b></Label>
             </div>
           </div>
         );
@@ -429,7 +429,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Defendant Information</h3>
             <div>
-              <Label className="pb-2">Defendant Type</Label>
+              <Label className="pb-2">Defendant Type <b style={{color: "red"}}>*</b></Label>
               <RadioGroup
                 value={formData.defendantType}
                 onValueChange={(value) => updateFormData("defendantType", value)}
@@ -445,7 +445,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </RadioGroup>
             </div>
             <div>
-              <Label>Defendant's Ethnicity</Label>
+              <Label>Defendant's Ethnicity <b style={{color: "red"}}>*</b></Label>
               <Select value={formData.defendantEthnicity} onValueChange={(value) => updateFormData("defendantEthnicity", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select ethnicity" />
@@ -458,23 +458,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </Select>
             </div>
             <div>
-              <Label>Defendant's Income Range</Label>
-              <Select value={formData.defendantIncome} onValueChange={(value) => updateFormData("defendantIncome", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select income range" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="unknown">Unknown</SelectItem>
-                  <SelectItem value="under-25k">Under $25,000</SelectItem>
-                  <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
-                  <SelectItem value="50k-75k">$50,000 - $75,000</SelectItem>
-                  <SelectItem value="75k-100k">$75,000 - $100,000</SelectItem>
-                  <SelectItem value="over-100k">Over $100,000</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <Label htmlFor="defendantZipCode">Defendant's ZIP Code</Label>
+              <Label htmlFor="defendantZipCode">Defendant's ZIP Code <b style={{color: "red"}}>*</b></Label>
               <div className="flex gap-2">
                 <Input
                   id="defendantZipCode"
@@ -503,7 +487,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.hasDefendantInfo}
                 onCheckedChange={(checked) => updateFormData("hasDefendantInfo", checked)}
               />
-              <Label htmlFor="has-defendant-info">The claimant has the defendant's legal name and valid residential address</Label>
+              <Label htmlFor="has-defendant-info">The claimant has the defendant's legal name and valid residential address <b style={{color: "red"}}>*</b></Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -511,7 +495,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.defendantInBankruptcy}
                 onCheckedChange={(checked) => updateFormData("defendantInBankruptcy", checked)}
               />
-              <Label htmlFor="defendant-bankruptcy">The defendant is not currently in bankruptcy</Label>
+              <Label htmlFor="defendant-bankruptcy">The defendant is not currently in bankruptcy <b style={{color: "red"}}>*</b></Label>
             </div>
           </div>
         );
@@ -521,7 +505,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Claimant Information</h3>
             <div>
-              <Label className="pb-2">Your Type</Label>
+              <Label className="pb-2">Claimant Type <b style={{color: "red"}}>*</b></Label>
               <RadioGroup
                 value={formData.plaintiffType}
                 onValueChange={(value) => updateFormData("plaintiffType", value)}
@@ -537,7 +521,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </RadioGroup>
             </div>
             <div>
-              <Label htmlFor="age">Your Age</Label>
+              <Label htmlFor="age">Claimant Age <b style={{color: "red"}}>*</b></Label>
               <Input
                 id="age"
                 type="number"
@@ -553,11 +537,11 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                   checked={formData.hasGuardian}
                   onCheckedChange={(checked) => updateFormData("hasGuardian", checked)}
                 />
-                <Label htmlFor="has-guardian">If the claimant is under 18, they have a guardian appointed</Label>
+                <Label htmlFor="has-guardian">If the claimant is under 18, they have a guardian appointed <b style={{color: "red"}}>*</b></Label>
               </div>
             )}
             <div>
-              <Label>Your Ethnicity</Label>
+              <Label>Claimant Ethnicity <b style={{color: "red"}}>*</b></Label>
               <Select value={formData.plaintiffEthnicity} onValueChange={(value) => updateFormData("plaintiffEthnicity", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select ethnicity" />
@@ -572,28 +556,13 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 </SelectContent>
               </Select>
             </div>
-            <div>
-              <Label>Your Income Range</Label>
-              <Select value={formData.plaintiffIncome} onValueChange={(value) => updateFormData("plaintiffIncome", value)}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select income range" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="under-25k">Under $25,000</SelectItem>
-                  <SelectItem value="25k-50k">$25,000 - $50,000</SelectItem>
-                  <SelectItem value="50k-75k">$50,000 - $75,000</SelectItem>
-                  <SelectItem value="75k-100k">$75,000 - $100,000</SelectItem>
-                  <SelectItem value="over-100k">Over $100,000</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="self-representation"
                 checked={formData.selfRepresentation}
                 onCheckedChange={(checked) => updateFormData("selfRepresentation", checked)}
               />
-              <Label htmlFor="self-representation">The claimant will represent themselves in court</Label>
+              <Label htmlFor="self-representation">The claimant will represent themselves in court <b style={{color: "red"}}>*</b></Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -601,7 +570,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.hasMoreThan12Claims}
                 onCheckedChange={(checked) => updateFormData("hasMoreThan12Claims", checked)}
               />
-              <Label htmlFor="more-than-12-claims">The claimant has not made more than 12 claims in the past year at this court</Label>
+              <Label htmlFor="more-than-12-claims">The claimant has not made more than 12 claims in the past year at this court <b style={{color: "red"}}>*</b></Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
@@ -609,7 +578,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.understandsCourtAttendance}
                 onCheckedChange={(checked) => updateFormData("understandsCourtAttendance", checked)}
               />
-              <Label htmlFor="understands-court-attendance">The claimant understand that they HAVE TO attend scheduled court hearings</Label>
+              <Label htmlFor="understands-court-attendance">The claimant understand that they HAVE TO attend scheduled court hearings <b style={{color: "red"}}>*</b></Label>
             </div>
           </div>
         );
@@ -619,7 +588,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Final Details & Filing Location</h3>
             <div>
-              <Label htmlFor="zip-code">Zip Code of Filing Location</Label>
+              <Label htmlFor="zip-code">Zip Code of Filing Location <b style={{color: "red"}}>*</b></Label>
               <div className="flex gap-2">
                 <Input
                   id="zip-code"
@@ -656,7 +625,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 checked={formData.canPayFee}
                 onCheckedChange={(checked) => updateFormData("canPayFee", checked)}
               />
-              <Label htmlFor="filing-fee">The claimant can afford the $50 filing fee</Label>
+              <Label htmlFor="filing-fee">The claimant can afford the $50 filing fee <b style={{color: "red"}}>*</b></Label>
             </div>
           </div>
         );
