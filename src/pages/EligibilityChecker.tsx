@@ -24,10 +24,8 @@ interface FormData {
   claimType: string;
   defendantType: string;
   defendantEthnicity: string;
-  defendantIncome: string;
   plaintiffType: string;
   plaintiffEthnicity: string;
-  plaintiffIncome: string;
   incidentDate: Date | undefined;
   settlementAttempts: boolean;
   canPayFee: boolean;
@@ -60,10 +58,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     claimType: "",
     defendantType: "",
     defendantEthnicity: "",
-    defendantIncome: "",
     plaintiffType: "",
     plaintiffEthnicity: "",
-    plaintiffIncome: "",
     incidentDate: undefined,
     settlementAttempts: false,
     canPayFee: false,
@@ -116,14 +112,12 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
       case 2:
         if (!formData.defendantType) errors.push("Defendant type");
         if (!formData.defendantEthnicity) errors.push("Defendant's ethnicity");
-        if (!formData.defendantIncome) errors.push("Defendant's income range");
         if (!formData.defendantZipCode) errors.push("Defendant's ZIP code");
         break;
       case 3:
         if (!formData.plaintiffType) errors.push("Plaintiff type");
         if (!formData.age) errors.push("Plaintiff age");
         if (!formData.plaintiffEthnicity) errors.push("Plaintiff ethnicity");
-        if (!formData.plaintiffIncome) errors.push("Plaintiff income range");
         break;
       case 4:
         if (!formData.zipCode) errors.push("Filing location ZIP code");
@@ -210,10 +204,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           claimType: eligibilityForm.getClaimType(),
           defendantType: eligibilityForm.getDefendantType(),
           defendantEthnicity: eligibilityForm.getDefendantEthnicity(),
-          defendantIncome: eligibilityForm.getDefendantIncome(),
           plaintiffType: eligibilityForm.getPlaintiffType(),
           plaintiffEthnicity: eligibilityForm.getPlaintiffEthnicity(),
-          plaintiffIncome: eligibilityForm.getPlaintiffIncome(),
           zipCode: eligibilityForm.getZipCode(),
         });
       }
@@ -813,10 +805,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     claimType: "",
                     defendantType: "",
                     defendantEthnicity: "",
-                    defendantIncome: "",
                     plaintiffType: "",
                     plaintiffEthnicity: "",
-                    plaintiffIncome: "",
                     incidentDate: undefined,
                     settlementAttempts: false,
                     canPayFee: false,

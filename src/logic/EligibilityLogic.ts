@@ -37,10 +37,8 @@ export class EligibilityForm {
   private claimType: string;
   private defendantType: string;
   private defendantEthnicity: string;
-  private defendantIncome: number;
   private plaintiffType: string;
   private plaintiffEthnicity: string;
-  private plaintiffIncome: number;
   private incidentDate: Date;
   private settlementAttempts: boolean;
   private canPayFees: boolean;
@@ -62,10 +60,8 @@ export class EligibilityForm {
       this.claimType = data.claimType;
       this.defendantType = data.defendantType;
       this.defendantEthnicity = data.defendantEthnicity;
-      this.defendantIncome = data.defendantIncome;
       this.plaintiffType = data.plaintiffType;
       this.plaintiffEthnicity = data.plaintiffEthnicity;
-      this.plaintiffIncome = data.plaintiffIncome;
       this.incidentDate = data.incidentDate ? new Date(data.incidentDate) : undefined;
       this.settlementAttempts = data.settlementAttempts;
       this.canPayFees = data.canPayFee;
@@ -100,17 +96,11 @@ export class EligibilityForm {
   public getDefendantEthnicity() {
     return this.defendantEthnicity
   }
-  public getDefendantIncome() {
-    return this.defendantIncome
-  }
   public getPlaintiffType() {
     return this.plaintiffType
   }
   public getPlaintiffEthnicity() {
     return this.plaintiffEthnicity
-  }
-  public getPlaintiffIncome() {
-    return this.plaintiffIncome
   }
   public getIncidentDate() {
     return this.incidentDate
