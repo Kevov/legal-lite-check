@@ -24,6 +24,7 @@ interface FormData {
   claimType: string;
   defendantType: string;
   defendantEthnicity: string;
+  defendantContactInfo: string;
   plaintiffType: string;
   plaintiffEthnicity: string;
   incidentDate: Date | undefined;
@@ -58,6 +59,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     claimType: "",
     defendantType: "",
     defendantEthnicity: "",
+    defendantContactInfo: "",
     plaintiffType: "",
     plaintiffEthnicity: "",
     incidentDate: undefined,
@@ -112,7 +114,8 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
       case 2:
         if (!formData.defendantType) errors.push("Defendant type");
         if (!formData.defendantEthnicity) errors.push("Defendant's ethnicity");
-        if (!formData.defendantZipCode) errors.push("Defendant's ZIP code");
+        if (!formData.defendantContactInfo) errors.push("Defendant contact information");
+        if (!formData.defendantZipCode) errors.push("Defendant's residential ZIP code");
         break;
       case 3:
         if (!formData.plaintiffType) errors.push("Plaintiff type");
@@ -450,14 +453,24 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </Select>
             </div>
             <div>
-              <Label htmlFor="defendantZipCode">Defendant's ZIP Code <b style={{color: "red"}}>*</b></Label>
+              <Label htmlFor="defendantContactInfo">Defendant Contact Information (Phone/Email) <b style={{color: "red"}}>*</b></Label>
+              <Input
+                id="defendantContactInfo"
+                type="text"
+                value={formData.defendantContactInfo}
+                onChange={(e) => updateFormData("defendantContactInfo", e.target.value)}
+                placeholder="Enter defendant's phone number or email address"
+              />
+            </div>
+            <div>
+              <Label htmlFor="defendantZipCode">Defendant's Residential ZIP Code <b style={{color: "red"}}>*</b></Label>
               <div className="flex gap-2">
                 <Input
                   id="defendantZipCode"
                   type="text"
                   value={formData.defendantZipCode}
                   onChange={(e) => updateFormData("defendantZipCode", e.target.value)}
-                  placeholder="Enter defendant's ZIP code"
+                  placeholder="Enter defendant's residential ZIP code"
                   maxLength={5}
                   className="flex-1"
                 />
@@ -805,6 +818,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     claimType: "",
                     defendantType: "",
                     defendantEthnicity: "",
+                    defendantContactInfo: "",
                     plaintiffType: "",
                     plaintiffEthnicity: "",
                     incidentDate: undefined,
