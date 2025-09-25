@@ -812,7 +812,15 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                         </DialogFooter>
                       </DialogContent>
                     </Dialog>
-                    <Button className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90">
+                    <Button 
+                      className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
+                      onClick={() => {
+                        toast({
+                          title: "Demo Request Sent",
+                          description: "We'll contact you soon to schedule your demo.",
+                        });
+                      }}
+                    >
                       Book a Demo
                     </Button>
                   </div>
