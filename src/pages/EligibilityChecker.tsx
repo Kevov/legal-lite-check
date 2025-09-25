@@ -27,6 +27,7 @@ interface FormData {
   defendantContactInfo: string;
   plaintiffType: string;
   plaintiffEthnicity: string;
+  plaintiffContactInfo: string;
   incidentDate: Date | undefined;
   settlementAttempts: boolean;
   canPayFee: boolean;
@@ -62,6 +63,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
     defendantContactInfo: "",
     plaintiffType: "",
     plaintiffEthnicity: "",
+    plaintiffContactInfo: "",
     incidentDate: undefined,
     settlementAttempts: false,
     canPayFee: false,
@@ -121,6 +123,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
         if (!formData.plaintiffType) errors.push("Plaintiff type");
         if (!formData.age) errors.push("Plaintiff age");
         if (!formData.plaintiffEthnicity) errors.push("Plaintiff ethnicity");
+        if (!formData.plaintiffContactInfo) errors.push("Claimant contact information");
         break;
       case 4:
         if (!formData.zipCode) errors.push("Filing location ZIP code");
@@ -561,6 +564,16 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                 </SelectContent>
               </Select>
             </div>
+            <div>
+              <Label htmlFor="plaintiffContactInfo">Claimant Contact Information (Phone/Email) <b style={{color: "red"}}>*</b></Label>
+              <Input
+                id="plaintiffContactInfo"
+                type="text"
+                value={formData.plaintiffContactInfo}
+                onChange={(e) => updateFormData("plaintiffContactInfo", e.target.value)}
+                placeholder="Enter your phone number or email address"
+              />
+            </div>
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="self-representation"
@@ -821,6 +834,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
                     defendantContactInfo: "",
                     plaintiffType: "",
                     plaintiffEthnicity: "",
+                    plaintiffContactInfo: "",
                     incidentDate: undefined,
                     settlementAttempts: false,
                     canPayFee: false,
