@@ -316,7 +316,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Claim Details & Type</h3>
             <div>
-              <Label className="pb-2">Nature of Claim</Label>
+              <Label className="pb-2">Nature of Claim <span className="text-red-500">*</span></Label>
               <RadioGroup
                 value={formData.claimNature}
                 onValueChange={(value) => updateFormData("claimNature", value)}
@@ -332,7 +332,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </RadioGroup>
             </div>
             <div>
-              <Label htmlFor="amount">Claim Amount ($)</Label>
+              <Label htmlFor="amount">Claim Amount ($) <span className="text-red-500">*</span></Label>
               <Input
                 id="amount"
                 type="number"
@@ -355,7 +355,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </Select>
             </div>
             <div>
-              <Label>When did the incident occur?</Label>
+              <Label>When did the incident occur? <span className="text-red-500">*</span></Label>
               <div className="flex gap-2">
                 <Popover>
                   <PopoverTrigger asChild>
@@ -382,7 +382,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </div>
             </div>
             <div>
-              <Label htmlFor="incidentZipCode">ZIP Code of Incident Location</Label>
+              <Label htmlFor="incidentZipCode">ZIP Code of Incident Location <span className="text-red-500">*</span></Label>
               <div className="flex gap-2">
                 <Input
                   id="incidentZipCode"
@@ -429,7 +429,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Defendant Information</h3>
             <div>
-              <Label className="pb-2">Defendant Type</Label>
+              <Label className="pb-2">Defendant Type <span className="text-red-500">*</span></Label>
               <RadioGroup
                 value={formData.defendantType}
                 onValueChange={(value) => updateFormData("defendantType", value)}
@@ -445,7 +445,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </RadioGroup>
             </div>
             <div>
-              <Label>Defendant's Ethnicity</Label>
+              <Label>Defendant's Ethnicity <span className="text-red-500">*</span></Label>
               <Select value={formData.defendantEthnicity} onValueChange={(value) => updateFormData("defendantEthnicity", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select ethnicity" />
@@ -458,7 +458,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </Select>
             </div>
             <div>
-              <Label>Defendant's Income Range</Label>
+              <Label>Defendant's Income Range <span className="text-red-500">*</span></Label>
               <Select value={formData.defendantIncome} onValueChange={(value) => updateFormData("defendantIncome", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select income range" />
@@ -474,7 +474,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </Select>
             </div>
             <div>
-              <Label htmlFor="defendantZipCode">Defendant's ZIP Code</Label>
+              <Label htmlFor="defendantZipCode">Defendant's ZIP Code <span className="text-red-500">*</span></Label>
               <div className="flex gap-2">
                 <Input
                   id="defendantZipCode"
@@ -521,7 +521,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Claimant Information</h3>
             <div>
-              <Label className="pb-2">Your Type</Label>
+              <Label className="pb-2">Your Type <span className="text-red-500">*</span></Label>
               <RadioGroup
                 value={formData.plaintiffType}
                 onValueChange={(value) => updateFormData("plaintiffType", value)}
@@ -537,7 +537,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </RadioGroup>
             </div>
             <div>
-              <Label htmlFor="age">Your Age</Label>
+              <Label htmlFor="age">Your Age <span className="text-red-500">*</span></Label>
               <Input
                 id="age"
                 type="number"
@@ -557,7 +557,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </div>
             )}
             <div>
-              <Label>Your Ethnicity</Label>
+              <Label>Your Ethnicity <span className="text-red-500">*</span></Label>
               <Select value={formData.plaintiffEthnicity} onValueChange={(value) => updateFormData("plaintiffEthnicity", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select ethnicity" />
@@ -573,7 +573,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
               </Select>
             </div>
             <div>
-              <Label>Your Income Range</Label>
+              <Label>Your Income Range <span className="text-red-500">*</span></Label>
               <Select value={formData.plaintiffIncome} onValueChange={(value) => updateFormData("plaintiffIncome", value)}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select income range" />
@@ -619,7 +619,7 @@ const EligibilityChecker = ({ onBackToHome }: { onBackToHome?: () => void }) => 
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Final Details & Filing Location</h3>
             <div>
-              <Label htmlFor="zip-code">Zip Code of Filing Location</Label>
+              <Label htmlFor="zip-code">Zip Code of Filing Location <span className="text-red-500">*</span></Label>
               <div className="flex gap-2">
                 <Input
                   id="zip-code"
